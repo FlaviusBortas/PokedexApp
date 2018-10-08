@@ -15,12 +15,13 @@ struct PokemonResults: Codable {
     }
     
     var results: [PokemonEndpoint]
+    
+    lazy var firstGen: [PokemonEndpoint] = {
+        return Array(results[0..<151])
+    }()
 }
 
 extension PokemonResults {
-    var firstGen: [PokemonEndpoint] {
-        return Array(results[0..<151])
-    }
     
     var secondGen: [PokemonEndpoint] {
         return Array(results[151..<251])
