@@ -15,31 +15,28 @@ class PokemonList: UITableViewController {
     
     // MARK: - Properties
     
-    var pokemonID = 1
+    var pokemon: PokemonResults?
+    
     
     // MARK: - View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchPokemonData(with: pokemonURL())
         
-        let data = pokemonData(with: pokemonURL())!
-        
-        let pokemon = getPokemon(with: data)
-        
-        print("FIRST GEN: \(pokemon?.firstGen) \n")
-        print("SECOND GEN: \(pokemon?.secondGen) \n")
-        print("THIRD GEN: \(pokemon?.thirdGen) \n")
-        print("FOURTH GEN: \(pokemon?.fourthGen) \n")
-        print("FIFTH GEN: \(pokemon?.fifthGen) \n")
-        print("SIXTH GEN: \(pokemon?.sixthGen) \n")
-        print("SEVENTH GEN: \(pokemon?.seventhGen) \n")
-
     }
 
     // MARK: - Actions
     
     
     // MARK: - Methods
+    
+    func fetchPokemonData(with url: URL) {
+        let data = pokemonData(with: url)!
+        let fetchedPokemon = getPokemon(with: data)
+        
+        pokemon = fetchedPokemon
+    }
     
 
 }
@@ -49,13 +46,17 @@ class PokemonList: UITableViewController {
 extension PokemonList {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        guard let firstGen = pokemon?.firstGen else { return 0 }
+        
+        return firstGen.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PokemonTableViewCell.identifier) as! PokemonTableViewCell
         
-        cell.configure(with: "test")
+        guard let pokemonName = pokemon?.firstGen[indexPath.row].name else { return UITableViewCell() }
+        
+        cell.configure(with: pokemonName.capitalized )
         
         return cell
     }
