@@ -16,6 +16,7 @@ class PokemonList: UITableViewController {
     // MARK: - Properties
     
     var pokemon: PokemonResults?
+    var firstGenPokemonDetails = [Pokemon]()
     
     
     // MARK: - View Lifecycle
@@ -23,7 +24,9 @@ class PokemonList: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchPokemonData(with: pokemonURL())
-        
+        getPokemonDetailsData()
+        fetchAllPokemonImages()
+
     }
 
     // MARK: - Actions
@@ -32,10 +35,35 @@ class PokemonList: UITableViewController {
     // MARK: - Methods
     
     func fetchPokemonData(with url: URL) {
-        let data = pokemonData(with: url)!
+        let data = getPokemonData(for: url)!
         let fetchedPokemon = getPokemon(with: data)
         
         pokemon = fetchedPokemon
+    }
+    
+    func getPokemonDetailsData() {
+        guard let firstGenPokemon = pokemon?.firstGen else { return }
+        
+        for pokemon in firstGenPokemon {
+            guard let url = URL(string: pokemon.url) else { break }
+            let detailsData = getPokemonData(for: url)!
+            guard let fetchedPokemonDetails = getPokemonDetails(with: detailsData) else { break }
+           
+            firstGenPokemonDetails.append(fetchedPokemonDetails)
+        }
+    }
+    
+    func fetchAllPokemonImages() {
+        for pokemon in firstGenPokemonDetails {
+            guard let urlString = pokemon.sprites["front_default"] as? String, let url = URL(string: urlString) else { break }
+            let imageData = fetchPokemonImageData(for: url)
+            
+            pokemon.imageData = imageData
+        }
+    }
+    
+    func fetchPokemonImageData(for url: URL) -> Data {
+        return getPokemonData(for: url)!
     }
     
 
@@ -54,9 +82,9 @@ extension PokemonList {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PokemonTableViewCell.identifier) as! PokemonTableViewCell
         
-        guard let pokemonName = pokemon?.firstGen[indexPath.row].name else { return UITableViewCell() }
+        let pokemon = firstGenPokemonDetails[indexPath.row]
         
-        cell.configure(with: pokemonName.capitalized )
+        cell.configure(with: pokemon.name.capitalized, imageData: pokemon.imageData)
         
         return cell
     }
@@ -77,7 +105,7 @@ extension PokemonList {
     }
     
     // Get Data
-    private func pokemonData(with url: URL) -> Data? {
+    private func getPokemonData(for url: URL) -> Data? {
         do {
             return try Data(contentsOf: url)
         } catch {
@@ -91,6 +119,17 @@ extension PokemonList {
         do {
             let decoder = JSONDecoder()
             let result = try decoder.decode(PokemonResults.self, from: data)
+            return result
+        } catch {
+            print("JSON Error: \(error)")
+            return nil
+        }
+    }
+    
+    private func getPokemonDetails(with data: Data) -> Pokemon? {
+        do {
+            let decoder = JSONDecoder()
+            let result = try decoder.decode(Pokemon.self, from: data)
             return result
         } catch {
             print("JSON Error: \(error)")
