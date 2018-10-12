@@ -9,16 +9,15 @@ import UIKit
 
 class PokemonTableViewCell: UITableViewCell {
 
+    static let identifier = "PokemonTableViewCell"
+    
     @IBOutlet weak var pokemonNameLabel: UILabel!
     @IBOutlet weak var pokemonImageView: UIImageView!
     
-    static let identifier = "PokemonTableViewCell"
-    
-    
-    func configure(with name: String, imageData: Data?) {
-        pokemonNameLabel.text = name
+    func configure(with pokemon: Pokemon) {
+        pokemonNameLabel.text = pokemon.name
         
-        guard let imageData = imageData else { return }
+        guard let imageData = pokemon.imageData else { return }
         pokemonImageView.image = UIImage(data: imageData)
     }
 }
