@@ -25,23 +25,6 @@ enum Result<String> {
 class NetworkManager {
     let router = Router<PokemonAPI>()
     
-//    func getAllPokemon(completion: @escaping (_ pokemonResults: PokemonResults?, _ error: String?) -> ()) {
-////        print(#function, "Begin")
-//        
-////        completion(nil, "1")
-//        
-//        router.request(.allPokemon) { data, response, error in
-//            let (pokemonResults, error) = self.decodeTask(PokemonResults.self, from: (data, response, error))
-//            
-////            print("Finished api rquest about to call completion.")
-//            completion(pokemonResults, error)
-//        }
-//        
-////        completion(nil, "2")
-//        
-////        print(#function, "End")
-//    }
-    
     func getPokemon(number: Int, completion: @escaping (_ pokemon: Pokemon?, _ error: String?) -> ()) {
         router.request(.getPokemon(number)) { (data, response, error) in
             let (pokemon, error) = self.decodeTask(Pokemon.self, from: (data, response, error))
