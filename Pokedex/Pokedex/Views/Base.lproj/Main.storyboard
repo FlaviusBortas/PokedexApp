@@ -60,7 +60,7 @@
                     <navigationItem key="navigationItem" id="djq-Lr-7B8">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Y0b-YR-vwB">
-                            <rect key="frame" x="62" y="8" width="250" height="30"/>
+                            <rect key="frame" x="62.5" y="7" width="250" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="Gen 1"/>

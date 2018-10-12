@@ -9,6 +9,15 @@
 /* Begin PBXBuildFile section */
 		8B844DA9216A9B7F00D7FAE6 /* PokemonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B844DA8216A9B7F00D7FAE6 /* PokemonTableViewCell.swift */; };
 		8B844DAB216AA41400D7FAE6 /* PokemonEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B844DAA216AA41400D7FAE6 /* PokemonEndpoint.swift */; };
+		8B844DB2216C2C2F00D7FAE6 /* EndPointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B844DB1216C2C2F00D7FAE6 /* EndPointType.swift */; };
+		8B844DB5216C2D8700D7FAE6 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B844DB4216C2D8700D7FAE6 /* HTTPMethod.swift */; };
+		8B844DB7216C2DD200D7FAE6 /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B844DB6216C2DD200D7FAE6 /* HTTPTask.swift */; };
+		8B844DB9216C2EA000D7FAE6 /* ParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B844DB8216C2EA000D7FAE6 /* ParameterEncoder.swift */; };
+		8B844DBB216C306100D7FAE6 /* URLParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B844DBA216C306100D7FAE6 /* URLParameterEncoder.swift */; };
+		8B844DBD216C337100D7FAE6 /* JSONParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B844DBC216C337100D7FAE6 /* JSONParameterEncoder.swift */; };
+		8B844DBF216C343700D7FAE6 /* NetworkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B844DBE216C343700D7FAE6 /* NetworkRouter.swift */; };
+		8B844DC1216C3F0000D7FAE6 /* PokemonAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B844DC0216C3F0000D7FAE6 /* PokemonAPI.swift */; };
+		8B844DC3216C40F800D7FAE6 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B844DC2216C40F800D7FAE6 /* NetworkManager.swift */; };
 		8BCD2F4C21684D9E00784A25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD2F4B21684D9E00784A25 /* AppDelegate.swift */; };
 		8BCD2F4E21684D9E00784A25 /* PopkemonListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD2F4D21684D9E00784A25 /* PopkemonListViewController.swift */; };
 		8BCD2F5121684D9E00784A25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BCD2F4F21684D9E00784A25 /* Main.storyboard */; };
@@ -39,6 +48,15 @@
 /* Begin PBXFileReference section */
 		8B844DA8216A9B7F00D7FAE6 /* PokemonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonTableViewCell.swift; sourceTree = "<group>"; };
 		8B844DAA216AA41400D7FAE6 /* PokemonEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonEndpoint.swift; sourceTree = "<group>"; };
+		8B844DB1216C2C2F00D7FAE6 /* EndPointType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointType.swift; sourceTree = "<group>"; };
+		8B844DB4216C2D8700D7FAE6 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		8B844DB6216C2DD200D7FAE6 /* HTTPTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
+		8B844DB8216C2EA000D7FAE6 /* ParameterEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterEncoder.swift; sourceTree = "<group>"; };
+		8B844DBA216C306100D7FAE6 /* URLParameterEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLParameterEncoder.swift; sourceTree = "<group>"; };
+		8B844DBC216C337100D7FAE6 /* JSONParameterEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParameterEncoder.swift; sourceTree = "<group>"; };
+		8B844DBE216C343700D7FAE6 /* NetworkRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRouter.swift; sourceTree = "<group>"; };
+		8B844DC0216C3F0000D7FAE6 /* PokemonAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonAPI.swift; sourceTree = "<group>"; };
+		8B844DC2216C40F800D7FAE6 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		8BCD2F4821684D9E00784A25 /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BCD2F4B21684D9E00784A25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BCD2F4D21684D9E00784A25 /* PopkemonListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopkemonListViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +98,54 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8B844DAC216C2B5F00D7FAE6 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				8B844DB0216C2B8700D7FAE6 /* EndPoint */,
+				8B844DAF216C2B8000D7FAE6 /* Manager */,
+				8B844DAE216C2B7D00D7FAE6 /* Service */,
+				8B844DAD216C2B7800D7FAE6 /* Encoding */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		8B844DAD216C2B7800D7FAE6 /* Encoding */ = {
+			isa = PBXGroup;
+			children = (
+				8B844DB8216C2EA000D7FAE6 /* ParameterEncoder.swift */,
+				8B844DBA216C306100D7FAE6 /* URLParameterEncoder.swift */,
+				8B844DBC216C337100D7FAE6 /* JSONParameterEncoder.swift */,
+			);
+			path = Encoding;
+			sourceTree = "<group>";
+		};
+		8B844DAE216C2B7D00D7FAE6 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				8B844DB1216C2C2F00D7FAE6 /* EndPointType.swift */,
+				8B844DB4216C2D8700D7FAE6 /* HTTPMethod.swift */,
+				8B844DB6216C2DD200D7FAE6 /* HTTPTask.swift */,
+				8B844DBE216C343700D7FAE6 /* NetworkRouter.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		8B844DAF216C2B8000D7FAE6 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				8B844DC2216C40F800D7FAE6 /* NetworkManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		8B844DB0216C2B8700D7FAE6 /* EndPoint */ = {
+			isa = PBXGroup;
+			children = (
+				8B844DC0216C3F0000D7FAE6 /* PokemonAPI.swift */,
+			);
+			path = EndPoint;
+			sourceTree = "<group>";
+		};
 		8BCD2F3F21684D9E00784A25 = {
 			isa = PBXGroup;
 			children = (
@@ -103,6 +169,7 @@
 		8BCD2F4A21684D9E00784A25 /* Pokedex */ = {
 			isa = PBXGroup;
 			children = (
+				8B844DAC216C2B5F00D7FAE6 /* Networking */,
 				8BCD2F7B21684ECA00784A25 /* Models */,
 				8BCD2F7A21684EB200784A25 /* Views */,
 				8BCD2F7921684E7F00784A25 /* ViewControllers */,
@@ -290,8 +357,17 @@
 			files = (
 				8BCD2F4E21684D9E00784A25 /* PopkemonListViewController.swift in Sources */,
 				8B844DA9216A9B7F00D7FAE6 /* PokemonTableViewCell.swift in Sources */,
+				8B844DB5216C2D8700D7FAE6 /* HTTPMethod.swift in Sources */,
+				8B844DB9216C2EA000D7FAE6 /* ParameterEncoder.swift in Sources */,
+				8B844DBD216C337100D7FAE6 /* JSONParameterEncoder.swift in Sources */,
+				8B844DBF216C343700D7FAE6 /* NetworkRouter.swift in Sources */,
 				8B844DAB216AA41400D7FAE6 /* PokemonEndpoint.swift in Sources */,
+				8B844DB7216C2DD200D7FAE6 /* HTTPTask.swift in Sources */,
 				8BCD2F7D2168521000784A25 /* PokemonData.swift in Sources */,
+				8B844DB2216C2C2F00D7FAE6 /* EndPointType.swift in Sources */,
+				8B844DC3216C40F800D7FAE6 /* NetworkManager.swift in Sources */,
+				8B844DBB216C306100D7FAE6 /* URLParameterEncoder.swift in Sources */,
+				8B844DC1216C3F0000D7FAE6 /* PokemonAPI.swift in Sources */,
 				8BCD2F4C21684D9E00784A25 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
