@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+typealias HTTPHeaders = [String: String]
+
+enum HTTPTask {
+    case request
+}
