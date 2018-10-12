@@ -8,7 +8,6 @@
 import Foundation
 
 enum PokemonAPI {
-//    case allPokemon
     case getPokemon(Int)
     case getPokemonImage(Int)
 }
@@ -22,17 +21,8 @@ extension PokemonAPI: EndPointType {
         return url
     }
     
-//    var imageURL: URL {
-//        guard let url = URL(string: "http://pokeapi.co/media/sprites/pokemon/") else {
-//            fatalError("baseURL for images could not be configured.")
-//        }
-//        return url
-//    }
-    
     var path: String {
         switch self {
-//        case .allPokemon:
-//            return "/api/v2/pokemon"
         case .getPokemon(let number):
             return "/api/v2/pokemon/\(number)"
         case .getPokemonImage(let number):
