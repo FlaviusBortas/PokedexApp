@@ -17,7 +17,7 @@ struct PokemonResults: Codable {
     var results: [PokemonEndpoint]
     
     lazy var firstGen: [PokemonEndpoint] = {
-        return Array(results[0..<151])
+        return Array(results[0..<21])
     }()
 }
 

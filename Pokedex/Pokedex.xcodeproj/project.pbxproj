@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B016C892174EE0B009A0588 /* PokemonDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B016C882174EE0B009A0588 /* PokemonDetailsTableViewController.swift */; };
 		8B844DA9216A9B7F00D7FAE6 /* PokemonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B844DA8216A9B7F00D7FAE6 /* PokemonTableViewCell.swift */; };
 		8B844DAB216AA41400D7FAE6 /* PokemonEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B844DAA216AA41400D7FAE6 /* PokemonEndpoint.swift */; };
 		8B844DB2216C2C2F00D7FAE6 /* EndPointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B844DB1216C2C2F00D7FAE6 /* EndPointType.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8B016C882174EE0B009A0588 /* PokemonDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailsTableViewController.swift; sourceTree = "<group>"; };
 		8B844DA8216A9B7F00D7FAE6 /* PokemonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonTableViewCell.swift; sourceTree = "<group>"; };
 		8B844DAA216AA41400D7FAE6 /* PokemonEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonEndpoint.swift; sourceTree = "<group>"; };
 		8B844DB1216C2C2F00D7FAE6 /* EndPointType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointType.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 			children = (
 				8BCD2F4D21684D9E00784A25 /* PopkemonListViewController.swift */,
 				8BCD2F4B21684D9E00784A25 /* AppDelegate.swift */,
+				8B016C882174EE0B009A0588 /* PokemonDetailsTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 				8B844DBF216C343700D7FAE6 /* NetworkRouter.swift in Sources */,
 				8B844DAB216AA41400D7FAE6 /* PokemonEndpoint.swift in Sources */,
 				8B844DB7216C2DD200D7FAE6 /* HTTPTask.swift in Sources */,
+				8B016C892174EE0B009A0588 /* PokemonDetailsTableViewController.swift in Sources */,
 				8BCD2F7D2168521000784A25 /* PokemonData.swift in Sources */,
 				8B844DB2216C2C2F00D7FAE6 /* EndPointType.swift in Sources */,
 				8B844DC3216C40F800D7FAE6 /* NetworkManager.swift in Sources */,
