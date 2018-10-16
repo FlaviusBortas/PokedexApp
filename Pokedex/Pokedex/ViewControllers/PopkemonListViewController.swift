@@ -11,17 +11,15 @@ class PokemonList: UITableViewController {
     
     // MARK: - UI Elements
     
-//    @IBOutlet weak var pokemonNameLabel: UILabel!
     @IBOutlet weak var genCatagory: UISegmentedControl!
     
     // MARK: - Properties
     
     let networkManager = NetworkManager()
-//    var pokemon: PokemonResults?
     var genPokemonDetails = [Pokemon]()
     var selectedPokemon: Pokemon?
     var downloadGroup = DispatchGroup()
-    var generationRange = CountableRange(1...20)
+    var selectedGeneration = Generation.one
     
     // MARK: - View Lifecycle
 
@@ -33,35 +31,17 @@ class PokemonList: UITableViewController {
     // MARK: - Actions
     
     @IBAction func userSelectedGeneration(_ sender: UISegmentedControl) {
-        let generation = sender.selectedSegmentIndex
+        guard let generation = Generation(rawValue: sender.selectedSegmentIndex + 1) else { return }
         
-        switch generation {
-        case 0:
-            generationRange = CountableRange(1...20)
-            getPokemonDetails()
-            tableView.reloadData()
-        case 1:
-            generationRange = CountableRange(152...172)
-            getPokemonDetails()
-            tableView.reloadData()
-        case 2:
-            generationRange = CountableRange(253...272)
-            getPokemonDetails()
-            tableView.reloadData()
-        case 3:
-            generationRange = CountableRange(387...407)
-            getPokemonDetails()
-            tableView.reloadData()
-        default:
-            generationRange = CountableRange(1...20)
-        }
+        genPokemonDetails.removeAll()
+        selectedGeneration = generation
+        getPokemonDetails()
     }
     
     // MARK: - Methods
     
     func getPokemonDetails() {
-        
-        for index in generationRange {
+        for index in selectedGeneration.range {
             self.downloadGroup.enter()
             self.networkManager.getPokemon(number: index) { (pokemon, error) in
                 guard let pokemon = pokemon else { return }
@@ -80,8 +60,8 @@ class PokemonList: UITableViewController {
                 self.getAllPokemonImages()
             }
         }
-        
     }
+    
     func getAllPokemonImages() {
         
         for pokemon in genPokemonDetails {
@@ -116,8 +96,6 @@ extension PokemonList {
         
         return cell
     }
-    
-
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         self.selectedPokemon = genPokemonDetails[indexPath.row]
