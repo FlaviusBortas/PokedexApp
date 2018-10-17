@@ -14,6 +14,8 @@ class Pokemon: Codable {
     var height: Int
     var weight: Int
     var sprites: [String: String?]
+    var types: [Types]
+    var moves: [Moves]
     var imageData: Data? = nil
 }
 
