@@ -17,6 +17,15 @@ class Pokemon: Codable {
     var imageData: Data? = nil
 }
 
+struct Types: Codable {
+    var slot: Int
+    var type: [String: String]
+}
+
+struct Moves: Codable {
+    var move: [String: String]
+}
+
 extension Pokemon: CustomDebugStringConvertible {
     var debugDescription: String {
         return "ID: \(id) Name: \(name),\n Sprites: \(sprites), BaseExp: \(base_experience), Height: \(height), Weight: \(weight)"
