@@ -33,7 +33,7 @@ class PokemonDetailsTableViewController: UITableViewController {
     
     var exp: String {
         guard let pokemon = pokemon else { return "No pokemon" }
-        return "EXP: \(pokemon.base_experience)"
+        return "EXP: \(pokemon.baseExperience)"
     }
     
     var height: String {

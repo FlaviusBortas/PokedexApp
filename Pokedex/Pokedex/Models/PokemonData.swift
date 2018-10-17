@@ -8,14 +8,23 @@
 import Foundation
 
 class Pokemon: Codable {
+    
     var id: Int
     var name: String
-    var base_experience: Int
+    var baseExperience: Int
     var height: Int
     var weight: Int
     var sprites: [String: String?]
     var types: [Types]
     var moves: [Moves]
+
+    enum CodingKeys: String, CodingKey {
+        case id, name, height, weight, sprites, types, moves
+        case baseExperience = "base_experience"
+    }
+    
+    // Non API related DATA
+    
     var imageData: Data? = nil
 }
 
@@ -30,7 +39,6 @@ struct Moves: Codable {
 
 extension Pokemon: CustomDebugStringConvertible {
     var debugDescription: String {
-        return "ID: \(id) Name: \(name),\n Sprites: \(sprites), BaseExp: \(base_experience), Height: \(height), Weight: \(weight)"
+        return "ID: \(id) Name: \(name),\n Sprites: \(sprites), BaseExp: \(baseExperience), Height: \(height), Weight: \(weight), Types: \(types), Moves: \(moves)"
     }
-
 }
