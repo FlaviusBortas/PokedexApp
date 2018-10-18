@@ -7,11 +7,12 @@
 
 import UIKit
 
-class PokemonList: UITableViewController {
+class PokemonList: UITableViewController, UISearchBarDelegate {
     
     // MARK: - UI Elements
     
     @IBOutlet weak var genCatagory: UISegmentedControl!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     // MARK: - Properties
     
@@ -20,12 +21,16 @@ class PokemonList: UITableViewController {
     var selectedPokemon: Pokemon?
     var downloadGroup = DispatchGroup()
     var selectedGeneration = Generation.one
+    var filteredPokemon = [Pokemon]()
+    var isSearching = false
     
     // MARK: - View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         getPokemonDetails()
+        searchBar.delegate = self
+        searchBar.returnKeyType = UIReturnKeyType.done
     }
 
     // MARK: - Actions
@@ -84,6 +89,10 @@ extension PokemonList {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        if isSearching {
+            return filteredPokemon.count
+        }
+        
         return genPokemonDetails.count
     }
     
@@ -93,6 +102,13 @@ extension PokemonList {
         let pokemon = genPokemonDetails[indexPath.row]
         
         cell.configure(with: pokemon)
+        
+        if isSearching {
+            cell.configure(with: filteredPokemon[indexPath.row])
+        }
+        else {
+            cell.configure(with: pokemon)
+        }
         
         return cell
     }
@@ -113,4 +129,19 @@ extension PokemonList {
             print("Error")
         }
     }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text == nil || searchBar.text == "" {
+            isSearching = false
+            view.endEditing(true)
+            tableView.reloadData()
+        }
+        else {
+            isSearching = true
+            
+            filteredPokemon = genPokemonDetails.filter({$0.name.contains(searchText.lowercased())})
+            tableView.reloadData()
+        }
+    }
+    
 }
