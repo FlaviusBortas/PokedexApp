@@ -12,6 +12,7 @@ class PokemonList: UITableViewController {
     // MARK: - UI Elements
     
     @IBOutlet weak var genCatagory: UISegmentedControl!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     // MARK: - Properties
     

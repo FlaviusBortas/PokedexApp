@@ -81,6 +81,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="genCatagory" destination="Y0b-YR-vwB" id="GaS-Ot-Eti"/>
+                        <outlet property="searchBar" destination="yWS-TO-pdv" id="gOF-6O-GJn"/>
                         <outlet property="searchDisplayController" destination="RGa-P2-HAh" id="Oet-TR-TzL"/>
                     </connections>
                 </tableViewController>
