@@ -45,8 +45,25 @@ class PokemonDetailsTableViewController: UITableViewController {
         expCell.textLabel?.text = pokemon.expString
         heightCell.textLabel?.text = pokemon.heightString
         weightCell.textLabel?.text = pokemon.weightString
-        typesCell.textLabel?.text = ""
+        typesCell.textLabel?.text = pokemon.typeString
         movesCell.textLabel?.text = "Moves"
         spritesCell.textLabel?.text = "Images"
+    }
+    
+//    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+//        self.selectedPokemon = pokemon?.moves[indexPath.row]
+//
+//        return indexPath
+//    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        switch segue.identifier {
+        case "pokemonMoves":
+            guard let pokemonMovesVC = segue.destination as? PokemonMovesTableViewController else { return }
+            pokemonMovesVC.pokemon = pokemon
+        default:
+            print("Error")
+        }
     }
 }
