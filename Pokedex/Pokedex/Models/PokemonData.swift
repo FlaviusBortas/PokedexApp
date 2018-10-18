@@ -7,6 +7,8 @@
 
 import Foundation
 
+    // MARK: - API Data Structure
+
 class Pokemon: Codable {
     
     var id: Int
@@ -22,11 +24,13 @@ class Pokemon: Codable {
         case id, name, height, weight, sprites, types, moves
         case baseExperience = "base_experience"
     }
-    
-    // Non API related DATA
+
+    // MARK: - Non API Related DATA
     
     var imageData: Data? = nil
 }
+
+    // MARK: - JSON Parsing Structure
 
 struct Types: Codable {
     var slot: Int
@@ -37,8 +41,56 @@ struct Moves: Codable {
     var move: [String: String]
 }
 
+    // MARK: - Debugging
+
 extension Pokemon: CustomDebugStringConvertible {
     var debugDescription: String {
         return "ID: \(id) Name: \(name),\n Sprites: \(sprites), BaseExp: \(baseExperience), Height: \(height), Weight: \(weight), Types: \(types), Moves: \(moves)"
+    }
+}
+
+    // MARK: - Computed Properties
+
+extension Pokemon {
+    
+    var pokemonTitle: String {
+        return "\(self.name)".capitalized
+    }
+    
+    var idString: String {
+        return "ID: \(self.id)"
+    }
+    
+    var expString: String {
+        return "EXP: \(self.baseExperience)"
+    }
+    
+    var heightString: String {
+        let formattedHeight = String(format: "%0.01f", Double(self.height)/10)
+        
+        return "Height: \(formattedHeight) m"
+    }
+    
+    var weightString: String {
+        let formattedWeight = String(format: "%0.01f", Double(self.weight)/10)
+        
+        return "Weight: \(formattedWeight) kg"
+    }
+    
+    var typeString: String {
+        let typesString = "Types: "
+        
+        switch self.types.count {
+        case 1:
+            let firstType = self.types[0].type["name"]!
+            return typesString + firstType.capitalized
+        case 2:
+            let firstType = self.types[0].type["name"]!
+            let secondType = self.types[1].type["name"]!
+            
+            return typesString + firstType.capitalized + ", " + secondType.capitalized
+        default:
+            return "No type"
+        }
     }
 }
