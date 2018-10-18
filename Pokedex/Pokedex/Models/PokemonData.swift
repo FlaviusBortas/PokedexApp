@@ -42,3 +42,33 @@ extension Pokemon: CustomDebugStringConvertible {
         return "ID: \(id) Name: \(name),\n Sprites: \(sprites), BaseExp: \(baseExperience), Height: \(height), Weight: \(weight), Types: \(types), Moves: \(moves)"
     }
 }
+
+// MARK: - Computed Properties
+
+extension Pokemon {
+    
+    var pokemonTitle: String {
+        return "\(self.name)".capitalized
+    }
+    
+    var idString: String {
+        return "ID: \(self.id)"
+    }
+    
+    var expString: String {
+        return "EXP: \(self.baseExperience)"
+    }
+    
+    var heightString: String {
+        let formattedHeight = String(format: "%0.01f", Double(self.height)/10)
+        
+        return "Height: \(formattedHeight) m"
+    }
+    
+    var weightString: String {
+        let formattedWeight = String(format: "%0.01f", Double(self.weight)/10)
+        
+        return "Weight: \(formattedWeight) kg"
+    }
+    
+}

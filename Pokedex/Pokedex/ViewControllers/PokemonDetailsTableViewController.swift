@@ -10,45 +10,18 @@ import UIKit
 class PokemonDetailsTableViewController: UITableViewController {
 
     // MARK: - UI Elements
+    @IBOutlet weak var titleLabel: UINavigationItem!
     @IBOutlet weak var idCell: UITableViewCell!
     @IBOutlet weak var expCell: UITableViewCell!
     @IBOutlet weak var heightCell: UITableViewCell!
     @IBOutlet weak var weightCell: UITableViewCell!
+    @IBOutlet weak var typesCell: UITableViewCell!
+    @IBOutlet weak var movesCell: UITableViewCell!
     @IBOutlet weak var spritesCell: UITableViewCell!
-    @IBOutlet weak var titleLabel: UINavigationItem!
     
     // MARK: - Properties
     
     var pokemon: Pokemon?
-    
-    var pokemonTitle: String {
-        guard let pokemon = pokemon else { return "No pokemon" }
-        return "\(pokemon.name)".capitalized
-    }
-    
-    var id: String {
-        guard let pokemon = pokemon else { return "No pokemon" }
-        return "ID: \(pokemon.id)"
-    }
-    
-    var exp: String {
-        guard let pokemon = pokemon else { return "No pokemon" }
-        return "EXP: \(pokemon.baseExperience)"
-    }
-    
-    var height: String {
-        guard let pokemon = pokemon else { return "No pokemon" }
-        let formattedHeight = String(format: "%0.01f", Double(pokemon.height)/10)
-        
-        return "Height: \(formattedHeight) m"
-    }
-    
-    var weight: String {
-        guard let pokemon = pokemon else { return "No pokemon" }
-         let formattedWeight = String(format: "%0.01f", Double(pokemon.weight)/10)
-        
-        return "Weight: \(formattedWeight) kg"
-    }
     
     // MARK: - View LifeCycle
     
@@ -65,12 +38,15 @@ class PokemonDetailsTableViewController: UITableViewController {
     
     func loadDetails() {
         navigationController?.navigationBar.prefersLargeTitles = true
+        guard let pokemon = pokemon else { return }
         
-        titleLabel.title = pokemonTitle
-        idCell.textLabel?.text = id
-        expCell.textLabel?.text = exp
-        heightCell.textLabel?.text = height
-        weightCell.textLabel?.text = weight
+        titleLabel.title = pokemon.pokemonTitle
+        idCell.textLabel?.text = pokemon.idString
+        expCell.textLabel?.text = pokemon.expString
+        heightCell.textLabel?.text = pokemon.heightString
+        weightCell.textLabel?.text = pokemon.weightString
+        typesCell.textLabel?.text = ""
+        movesCell.textLabel?.text = "Moves"
         spritesCell.textLabel?.text = "Images"
     }
 }
