@@ -15,7 +15,7 @@ class PokemonTableViewCell: UITableViewCell {
     @IBOutlet weak var pokemonImageView: UIImageView!
     
     func configure(with pokemon: Pokemon) {
-        pokemonNameLabel.text = pokemon.name
+        pokemonNameLabel.text = pokemon.name.capitalized
         
         guard let imageData = pokemon.imageData else { return }
         pokemonImageView.image = UIImage(data: imageData)
