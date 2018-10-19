@@ -27,6 +27,7 @@ extension PokemonAPI: EndPointType {
             return "/api/v2/pokemon/\(number)"
         case .getPokemonImage(let number):
             return "/media/sprites/pokemon/\(number).png"
+            // FrontShiny : /media/sprites/pokemon/shiny/\(number).png
         }
     }
     

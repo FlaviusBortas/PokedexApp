@@ -17,9 +17,9 @@ class PokemonList: UITableViewController, UISearchBarDelegate {
     // MARK: - Properties
     
     let networkManager = NetworkManager()
+    var downloadGroup = DispatchGroup()
     var genPokemonDetails = [Pokemon]()
     var selectedPokemon: Pokemon?
-    var downloadGroup = DispatchGroup()
     var selectedGeneration = Generation.one
     var filteredPokemon = [Pokemon]()
     var isSearching = false
@@ -143,5 +143,4 @@ extension PokemonList {
             tableView.reloadData()
         }
     }
-    
 }
