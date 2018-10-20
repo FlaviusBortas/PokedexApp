@@ -24,15 +24,18 @@ class PokemonDetailsTableViewController: UITableViewController {
     var pokemon: Pokemon?
     
     // MARK: - View LifeCycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+//
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
         loadDetails()
     }
+    
+    // MARK: - Actions
+    
     
     // MARK: - Methods
     
