@@ -31,7 +31,6 @@
 		8BE071022178C7DF00A3593F /* MovesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE071012178C7DF00A3593F /* MovesTableViewController.swift */; };
 		8BE071062178CF5900A3593F /* PokemonMovesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE071052178CF5900A3593F /* PokemonMovesTableViewCell.swift */; };
 		8BE07108217B99FE00A3593F /* PokemonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE07107217B99FE00A3593F /* PokemonCollectionViewCell.swift */; };
-		8BE0710C217CFEA600A3593F /* GifAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0710B217CFEA600A3593F /* GifAnimator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,7 +81,6 @@
 		8BE071012178C7DF00A3593F /* MovesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovesTableViewController.swift; sourceTree = "<group>"; };
 		8BE071052178CF5900A3593F /* PokemonMovesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonMovesTableViewCell.swift; sourceTree = "<group>"; };
 		8BE07107217B99FE00A3593F /* PokemonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonCollectionViewCell.swift; sourceTree = "<group>"; };
-		8BE0710B217CFEA600A3593F /* GifAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifAnimator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,7 +236,6 @@
 				8BCD2F7C2168521000784A25 /* PokemonData.swift */,
 				8B844DAA216AA41400D7FAE6 /* PokemonEndpoint.swift */,
 				8B016C8A217554B6009A0588 /* Generations.swift */,
-				8BE0710B217CFEA600A3593F /* GifAnimator.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -390,7 +387,6 @@
 				8B844DBB216C306100D7FAE6 /* URLParameterEncoder.swift in Sources */,
 				8B844DC1216C3F0000D7FAE6 /* PokemonAPI.swift in Sources */,
 				8BE07108217B99FE00A3593F /* PokemonCollectionViewCell.swift in Sources */,
-				8BE0710C217CFEA600A3593F /* GifAnimator.swift in Sources */,
 				8BE071062178CF5900A3593F /* PokemonMovesTableViewCell.swift in Sources */,
 				8BCD2F4C21684D9E00784A25 /* AppDelegate.swift in Sources */,
 			);
