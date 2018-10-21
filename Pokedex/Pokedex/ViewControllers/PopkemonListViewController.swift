@@ -32,7 +32,7 @@ class PokemonList: UIViewController {
         collection.delegate = self
         collection.dataSource = self
         searchBar.delegate = self
-        
+        setTabBarImage()
         getPokemonDetails()
         searchBar.returnKeyType = UIReturnKeyType.done
     }
@@ -192,5 +192,9 @@ extension PokemonList: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         view.endEditing(true)
+    }
+    
+    func setTabBarImage() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(named: "PokedexSearchBarBG"), for: .default)
     }
 }

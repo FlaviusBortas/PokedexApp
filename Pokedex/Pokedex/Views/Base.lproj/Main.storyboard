@@ -120,6 +120,7 @@
                                 <segment title="Gen 3"/>
                                 <segment title="Gen 4"/>
                             </segments>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="userSelectedGeneration:" destination="ZBW-dB-Pdu" eventType="valueChanged" id="ker-do-F8T"/>
                             </connections>
@@ -210,12 +211,14 @@
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Y0b-YR-vwB">
                             <rect key="frame" x="62.666666666666657" y="7" width="249.99999999999997" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <segments>
                                 <segment title="Gen 1"/>
                                 <segment title="Gen 2"/>
                                 <segment title="Gen 3"/>
                                 <segment title="Gen 4"/>
                             </segments>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="userSelectedGeneration:" destination="pth-X8-ouK" eventType="valueChanged" id="iHb-Jx-M9e"/>
                             </connections>

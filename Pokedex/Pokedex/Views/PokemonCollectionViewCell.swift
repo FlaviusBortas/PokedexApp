@@ -19,5 +19,7 @@ class PokemonCollectionViewCell: UICollectionViewCell {
         
 //        guard let imageData = pokemon.imageData else { return }
         pokemonImageView.image = UIImage(named: "\(pokemon.id).png")
+        
+//        pokemonImageView.loadGif(name: "\(pokemon.id)")
     }
 }
