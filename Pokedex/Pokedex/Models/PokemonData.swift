@@ -45,7 +45,7 @@ struct Moves: Codable {
 
 extension Pokemon: CustomDebugStringConvertible {
     var debugDescription: String {
-        return "ID: \(id) Name: \(name),\n Sprites: \(sprites), BaseExp: \(baseExperience), Height: \(height), Weight: \(weight), Types: \(types), Moves: \(moves)"
+        return "ID: \(id) Name: \(name),\n Sprites: \(sprites), BaseExp: \(baseExperience), Height: \(height), Weight: \(weight), Types:, Moves:"
     }
 }
 
