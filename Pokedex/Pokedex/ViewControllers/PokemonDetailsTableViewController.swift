@@ -1,5 +1,5 @@
 //
-//  PokemonDetailsTableViewController.swift
+//  PokemonDetailsViewController.swift
 //  Pokedex
 //
 //  Created by Flavius Bortas on 10/15/18.
@@ -7,31 +7,31 @@
 
 import UIKit
 
-class PokemonDetailsTableViewController: UITableViewController {
+class PokemonDetailsViewController: UIViewController {
 
     // MARK: - UI Elements
-    @IBOutlet weak var titleLabel: UINavigationItem!
-    @IBOutlet weak var idCell: UITableViewCell!
-    @IBOutlet weak var expCell: UITableViewCell!
-    @IBOutlet weak var heightCell: UITableViewCell!
-    @IBOutlet weak var weightCell: UITableViewCell!
-    @IBOutlet weak var typesCell: UITableViewCell!
-    @IBOutlet weak var movesCell: UITableViewCell!
-    @IBOutlet weak var spritesCell: UITableViewCell!
+
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var idLabel: UILabel!
+    @IBOutlet weak var heightLabel: UILabel!
+    @IBOutlet weak var typeLabel: UILabel!
+    @IBOutlet weak var weightLabel: UILabel!
+    @IBOutlet weak var expLabel: UILabel!
+    @IBOutlet weak var pokemonImageView: UIImageView!
     
     // MARK: - Properties
     
     var pokemon: Pokemon?
-    
+
     // MARK: - View LifeCycle
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
-        tableView.reloadData()
         loadDetails()
+        setTabBarImage()
     }
     
     // MARK: - Actions
@@ -40,17 +40,18 @@ class PokemonDetailsTableViewController: UITableViewController {
     // MARK: - Methods
     
     func loadDetails() {
-        navigationController?.navigationBar.prefersLargeTitles = true
-        guard let pokemon = pokemon else { return }
         
-        titleLabel.title = pokemon.pokemonTitle
-        idCell.textLabel?.text = pokemon.idString
-        expCell.textLabel?.text = pokemon.expString
-        heightCell.textLabel?.text = pokemon.heightString
-        weightCell.textLabel?.text = pokemon.weightString
-        typesCell.textLabel?.text = pokemon.typeString
-        movesCell.textLabel?.text = "Moves"
-        spritesCell.textLabel?.text = "Images"
+        guard let pokemon = self.pokemon else { return }
+        
+        pokemonImageView.image = UIImage(named: "\(pokemon.id).png")
+        titleLabel.text = pokemon.pokemonTitle
+        idLabel.text = pokemon.idString
+        expLabel.text = pokemon.expString
+        heightLabel.text = pokemon.heightString
+        weightLabel.text = pokemon.weightString
+        typeLabel.text = pokemon.typeString
+//        movesCell.textLabel?.text = "Moves"
+//        spritesCell.textLabel?.text = "Images"
     }
     
 //    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
@@ -68,5 +69,9 @@ class PokemonDetailsTableViewController: UITableViewController {
         default:
             print("Error")
         }
+    }
+    
+    func setTabBarImage() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(named: "PokedexSearchBarBG"), for: .default)
     }
 }

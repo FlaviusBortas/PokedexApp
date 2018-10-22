@@ -27,6 +27,15 @@ class PokemonList: UIViewController {
     
     // MARK: - View Lifecycle
 
+//    override func viewWillAppear(_ animated: Bool) {
+//        collection.delegate = self
+//        collection.dataSource = self
+//        searchBar.delegate = self
+//        setTabBarImage()
+//        getPokemonDetails()
+//        searchBar.returnKeyType = UIReturnKeyType.done
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collection.delegate = self
@@ -97,6 +106,7 @@ extension PokemonList: UICollectionViewDelegate, UICollectionViewDataSource {
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
         if isSearching {
             return filteredPokemon.count
         }
@@ -121,10 +131,12 @@ extension PokemonList: UICollectionViewDelegate, UICollectionViewDataSource {
         return cell
     }
     
-    private func collectionView(_ collectionView: UICollectionView, willSelectItemAt indexPath: IndexPath) -> IndexPath {
-        self.selectedPokemon = genPokemonDetails[indexPath.row]
-    
-        return indexPath
+     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedPokemon = genPokemonDetails[indexPath.row]
+        
+        performSegue(withIdentifier: "pokemonDetails", sender: selectedPokemon)
+        print(selectedPokemon)
+//        print("Selected Pokemon: \(selectedPokemon!)")
     }
     
 //    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -164,19 +176,20 @@ extension PokemonList: UICollectionViewDelegate, UICollectionViewDataSource {
         
         switch segue.identifier {
         case "pokemonDetails":
-            guard let pokemonDetailsVC = segue.destination as? PokemonDetailsTableViewController else { return }
+            guard let pokemonDetailsVC = segue.destination as? PokemonDetailsViewController else { return }
+            print(selectedPokemon)
             pokemonDetailsVC.pokemon = selectedPokemon
         default:
             print("Error")
         }
     }
-    
 }
 
 // MARK: - SearchBar Protocols
 
 extension PokemonList: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
         if searchBar.text == nil || searchBar.text == "" {
             isSearching = false
             view.endEditing(true)

@@ -29,7 +29,7 @@ class NetworkManager {
         router.request(.getPokemon(number)) { (data, response, error) in
             let (pokemon, error) = self.decodeTask(Pokemon.self, from: (data, response, error))
             
-            print(pokemon?.debugDescription)
+//            print(pokemon?.debugDescription)
 
             
             completion(pokemon, error)
