@@ -33,7 +33,7 @@ class PokemonDetailsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         guard let pokemon = pokemon else { return }
-//        getEvolutions(for: pokemon.id)
+        getEvolutions(for: pokemon.id)
         print(pokemonEvolutions)
         loadDetails()
         setTabBarImage()
@@ -52,26 +52,27 @@ class PokemonDetailsViewController: UIViewController {
             pokemonImageView.image = UIImage(named: "\(pokemon.name)")
         }
         else {
-            pokemonImageView.image = UIImage(named: "\(pokemon.id)")
+            pokemonImageView.image = UIImage(named: "\(pokemon.name)R")
         }
     }
     
     // MARK: - Methods
     
-//    func getEvolutions(for pokemon: Int) {
-//        networkManager.getPokemonEvolutions(number: pokemon) { (evolutions, error) in
-//            guard let decodedEvo = evolutions else { return }
-//
-//            self.pokemonEvolutions?.append(decodedEvo.pokemonEvolutions)
-//
-//        }
-//    }
+    func getEvolutions(for pokemon: Int) {
+        networkManager.getPokemonEvolutions(number: pokemon) { (evolutions, error) in
+            guard let decodedEvo = evolutions else { return }
+
+            self.pokemonEvolutions?.append(decodedEvo.secondEvo)
+            self.pokemonEvolutions?.append(decodedEvo.thirdEvo)
+
+        }
+    }
     
     func loadDetails() {
         
         guard let pokemon = self.pokemon else { return }
         
-        pokemonImageView.image = UIImage(named: "\(pokemon.id).png")
+        pokemonImageView.image = UIImage(named: "\(pokemon.name)R.png")
         titleLabel.text = pokemon.pokemonTitle
         idLabel.text = pokemon.idString
         expLabel.text = pokemon.expString

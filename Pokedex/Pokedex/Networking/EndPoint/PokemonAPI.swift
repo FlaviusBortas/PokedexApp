@@ -29,7 +29,7 @@ extension PokemonAPI: EndPointType {
         case .getPokemonImage(let number):
             return "/media/sprites/pokemon/\(number).png"
         case .getEvolutions(let number):
-            return "/api/v2/pokemon-form/\(number)/"
+            return "/api/v2/evolution-chain/\(number)/"
         }
     }
     

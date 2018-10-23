@@ -35,9 +35,9 @@ class NetworkManager {
         }
     }
     
-    func getPokemonEvolutions(number: Int, completion: @escaping (_ evolutions: Evolutions?, _ error: String?) -> ()) {
+    func getPokemonEvolutions(number: Int, completion: @escaping (_ evolutions: EvolutionData?, _ error: String?) -> ()) {
         router.request(.getEvolutions(number)) { (data, response, error) in
-            let (evolutions, error) = self.decodeTask(Evolutions.self, from: (data, response, error))
+            let (evolutions, error) = self.decodeTask(EvolutionData.self, from: (data, response, error))
             
                 print(evolutions.debugDescription)
             

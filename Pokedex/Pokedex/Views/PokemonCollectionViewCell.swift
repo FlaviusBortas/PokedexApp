@@ -17,6 +17,6 @@ class PokemonCollectionViewCell: UICollectionViewCell {
     func configure(with pokemon: Pokemon) {
         pokemonNameLabel.text = pokemon.name.capitalized
         
-        pokemonImageView.image = UIImage(named: "\(pokemon.id).png")
+        pokemonImageView.image = UIImage(named: "\(pokemon.name)R.png")
     }
 }
