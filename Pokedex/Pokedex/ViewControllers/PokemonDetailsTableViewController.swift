@@ -27,10 +27,14 @@ class PokemonDetailsViewController: UIViewController {
     
     let networkManager = NetworkManager()
     var pokemon: Pokemon?
+    var pokemonEvolutions: [[String: String?]]?
 
     // MARK: - View LifeCycle
     
     override func viewWillAppear(_ animated: Bool) {
+        guard let pokemon = pokemon else { return }
+//        getEvolutions(for: pokemon.id)
+        print(pokemonEvolutions)
         loadDetails()
         setTabBarImage()
     }
@@ -53,6 +57,15 @@ class PokemonDetailsViewController: UIViewController {
     }
     
     // MARK: - Methods
+    
+//    func getEvolutions(for pokemon: Int) {
+//        networkManager.getPokemonEvolutions(number: pokemon) { (evolutions, error) in
+//            guard let decodedEvo = evolutions else { return }
+//
+//            self.pokemonEvolutions?.append(decodedEvo.pokemonEvolutions)
+//
+//        }
+//    }
     
     func loadDetails() {
         

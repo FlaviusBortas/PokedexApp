@@ -30,9 +30,18 @@ class NetworkManager {
             let (pokemon, error) = self.decodeTask(Pokemon.self, from: (data, response, error))
             
 //            print(pokemon?.debugDescription)
-
             
             completion(pokemon, error)
+        }
+    }
+    
+    func getPokemonEvolutions(number: Int, completion: @escaping (_ evolutions: Evolutions?, _ error: String?) -> ()) {
+        router.request(.getEvolutions(number)) { (data, response, error) in
+            let (evolutions, error) = self.decodeTask(Evolutions.self, from: (data, response, error))
+            
+                print(evolutions.debugDescription)
+            
+            completion(evolutions, error)
         }
     }
     

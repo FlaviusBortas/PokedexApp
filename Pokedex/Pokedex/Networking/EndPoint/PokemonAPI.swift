@@ -10,7 +10,7 @@ import Foundation
 enum PokemonAPI {
     case getPokemon(Int)
     case getPokemonImage(Int)
-    case getDescription(Int)
+    case getEvolutions(Int)
 }
 
 extension PokemonAPI: EndPointType {
@@ -28,8 +28,8 @@ extension PokemonAPI: EndPointType {
             return "/api/v2/pokemon/\(number)"
         case .getPokemonImage(let number):
             return "/media/sprites/pokemon/\(number).png"
-        case .getDescription(let number):
-            return "/api/v2/pokemon-species/\(number)/"
+        case .getEvolutions(let number):
+            return "/api/v2/pokemon-form/\(number)/"
         }
     }
     

@@ -29,6 +29,7 @@
 		8BCD2F7D2168521000784A25 /* PokemonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD2F7C2168521000784A25 /* PokemonData.swift */; };
 		8BE071062178CF5900A3593F /* PokemonMovesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE071052178CF5900A3593F /* PokemonMovesTableViewCell.swift */; };
 		8BE07108217B99FE00A3593F /* PokemonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE07107217B99FE00A3593F /* PokemonCollectionViewCell.swift */; };
+		8BE07285217FAB4400A3593F /* EvolutionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE07284217FAB4400A3593F /* EvolutionData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		8BCD2F7C2168521000784A25 /* PokemonData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonData.swift; sourceTree = "<group>"; };
 		8BE071052178CF5900A3593F /* PokemonMovesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonMovesTableViewCell.swift; sourceTree = "<group>"; };
 		8BE07107217B99FE00A3593F /* PokemonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonCollectionViewCell.swift; sourceTree = "<group>"; };
+		8BE07284217FAB4400A3593F /* EvolutionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvolutionData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,6 +232,7 @@
 				8BCD2F7C2168521000784A25 /* PokemonData.swift */,
 				8B844DAA216AA41400D7FAE6 /* PokemonEndpoint.swift */,
 				8B016C8A217554B6009A0588 /* Generations.swift */,
+				8BE07284217FAB4400A3593F /* EvolutionData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				8BCD2F7D2168521000784A25 /* PokemonData.swift in Sources */,
 				8B844DB2216C2C2F00D7FAE6 /* EndPointType.swift in Sources */,
 				8B016C8B217554B6009A0588 /* Generations.swift in Sources */,
+				8BE07285217FAB4400A3593F /* EvolutionData.swift in Sources */,
 				8B844DC3216C40F800D7FAE6 /* NetworkManager.swift in Sources */,
 				8B844DBB216C306100D7FAE6 /* URLParameterEncoder.swift in Sources */,
 				8B844DC1216C3F0000D7FAE6 /* PokemonAPI.swift in Sources */,
