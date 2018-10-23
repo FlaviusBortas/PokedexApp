@@ -35,6 +35,7 @@ class NetworkManager {
             completion(pokemon, error)
         }
     }
+    
 
     func getPokemonImage(number: Int, completion: @escaping (_ pokemonImage: Data?, _ error: String?) -> ()) {
         router.request(.getPokemonImage(number)) { (data, response, error) in

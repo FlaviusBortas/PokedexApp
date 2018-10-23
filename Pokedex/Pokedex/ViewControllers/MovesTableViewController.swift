@@ -27,6 +27,7 @@ class PokemonMovesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PokemonMovesTableViewCell.identifier, for: indexPath) as! PokemonMovesTableViewCell
+        
         let currentIndex = indexPath.row
         
         guard let pokemon = pokemon else { return UITableViewCell() }

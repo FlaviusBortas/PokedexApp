@@ -19,9 +19,10 @@ class Pokemon: Codable {
     var sprites: [String: String?]
     var types: [Types]
     var moves: [Moves]
-
+    var abilities: [Abilities]
+    
     enum CodingKeys: String, CodingKey {
-        case id, name, height, weight, sprites, types, moves
+        case id, name, height, weight, sprites, types, moves, abilities
         case baseExperience = "base_experience"
     }
 
@@ -37,6 +38,12 @@ struct Types: Codable {
     var type: [String: String]
 }
 
+struct Abilities: Codable {
+    var is_hidden: Bool
+    var slot: Int
+    var ability: [String: String]
+}
+
 struct Moves: Codable {
     var move: [String: String]
 }
@@ -45,7 +52,7 @@ struct Moves: Codable {
 
 extension Pokemon: CustomDebugStringConvertible {
     var debugDescription: String {
-        return "ID: \(id) Name: \(name),\n Sprites: \(sprites), BaseExp: \(baseExperience), Height: \(height), Weight: \(weight), Types:, Moves:"
+        return "ID: , Name: ,\n Sprites:, BaseExp:, Height: , Weight: , Types:, Moves: \(moves), Abilities: \(abilities)"
     }
 }
 
@@ -78,7 +85,7 @@ extension Pokemon {
     }
     
     var typeString: String {
-        let typesString = "Types: "
+        let typesString = "Type: "
         
         switch self.types.count {
         case 1:

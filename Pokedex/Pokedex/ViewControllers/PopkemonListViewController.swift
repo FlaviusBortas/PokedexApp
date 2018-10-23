@@ -26,15 +26,6 @@ class PokemonList: UIViewController {
     var isSearching = false
     
     // MARK: - View Lifecycle
-
-//    override func viewWillAppear(_ animated: Bool) {
-//        collection.delegate = self
-//        collection.dataSource = self
-//        searchBar.delegate = self
-//        setTabBarImage()
-//        getPokemonDetails()
-//        searchBar.returnKeyType = UIReturnKeyType.done
-//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,20 +75,20 @@ class PokemonList: UIViewController {
         }
     }
     
-    func getAllPokemonImages() {
-        
-        for pokemon in genPokemonDetails {
-            downloadGroup.enter()
-            networkManager.getPokemonImage(number: pokemon.id) { (data, error) in
-                pokemon.imageData = data
-                self.downloadGroup.leave()
-            }
-        }
-        
-        downloadGroup.notify(queue: .main) {
-            self.collection.reloadData()
-        }
-    }
+//    func getAllPokemonImages() {
+//
+//        for pokemon in genPokemonDetails {
+//            downloadGroup.enter()
+//            networkManager.getPokemonImage(number: pokemon.id) { (data, error) in
+//                pokemon.imageData = data
+//                self.downloadGroup.leave()
+//            }
+//        }
+//
+//        downloadGroup.notify(queue: .main) {
+//            self.collection.reloadData()
+//        }
+//    }
 }
 
     // MARK - Cell Protocols

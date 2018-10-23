@@ -18,9 +18,14 @@ class PokemonDetailsViewController: UIViewController {
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet weak var expLabel: UILabel!
     @IBOutlet weak var pokemonImageView: UIImageView!
+    @IBOutlet weak var nextEvolution: UIImageView!
+    @IBOutlet weak var nextEvolution2: UIImageView!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var segment: UISegmentedControl!
     
     // MARK: - Properties
     
+    let networkManager = NetworkManager()
     var pokemon: Pokemon?
 
     // MARK: - View LifeCycle
@@ -36,6 +41,13 @@ class PokemonDetailsViewController: UIViewController {
     
     // MARK: - Actions
     
+    @IBAction func segmentClicked(_ sender: Any) {
+        tableView.reloadData()
+    }
+    
+    
+    @IBAction func shinySwitch(_ sender: UISwitch) {
+    }
     
     // MARK: - Methods
     
@@ -50,28 +62,41 @@ class PokemonDetailsViewController: UIViewController {
         heightLabel.text = pokemon.heightString
         weightLabel.text = pokemon.weightString
         typeLabel.text = pokemon.typeString
-//        movesCell.textLabel?.text = "Moves"
-//        spritesCell.textLabel?.text = "Images"
-    }
-    
-//    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-//        self.selectedPokemon = pokemon?.moves[indexPath.row]
-//
-//        return indexPath
-//    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        switch segue.identifier {
-        case "pokemonMoves":
-            guard let pokemonMovesVC = segue.destination as? PokemonMovesTableViewController else { return }
-            pokemonMovesVC.pokemon = pokemon
-        default:
-            print("Error")
-        }
     }
     
     func setTabBarImage() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(named: "PokedexSearchBarBG"), for: .default)
+    }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//
+//        switch segue.identifier {
+//        case "pokemonMoves":
+//            guard let pokemonMovesVC = segue.destination as? PokemonMovesTableViewController else { return }
+//            pokemonMovesVC.pokemon = pokemon
+//        default:
+//            print("Error")
+//        }
+//    }
+}
+
+    // MARK: - Cell Protocols
+
+extension PokemonDetailsViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let moves = pokemon?.moves, let abilities = pokemon?.abilities else { return 0 }
+        
+        return segment.selectedSegmentIndex == 0 ? moves.count :  abilities.count
+    }
+    
+      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: PokemonMovesTableViewCell.identifier, for: indexPath) as! PokemonMovesTableViewCell
+        let currentIndex = indexPath.row
+        
+        guard let pokemon = pokemon else { return UITableViewCell() }
+        
+        cell.configure(with: pokemon, index: currentIndex)
+        
+        return cell
     }
 }
