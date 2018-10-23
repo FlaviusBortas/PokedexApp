@@ -29,10 +29,6 @@ class PokemonDetailsViewController: UIViewController {
     var pokemon: Pokemon?
 
     // MARK: - View LifeCycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         loadDetails()
@@ -45,8 +41,15 @@ class PokemonDetailsViewController: UIViewController {
         tableView.reloadData()
     }
     
-    
     @IBAction func shinySwitch(_ sender: UISwitch) {
+        guard let pokemon = pokemon else { return }
+
+        if sender.isOn {
+            pokemonImageView.image = UIImage(named: "\(pokemon.name)")
+        }
+        else {
+            pokemonImageView.image = UIImage(named: "\(pokemon.id)")
+        }
     }
     
     // MARK: - Methods
@@ -67,17 +70,6 @@ class PokemonDetailsViewController: UIViewController {
     func setTabBarImage() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(named: "PokedexSearchBarBG"), for: .default)
     }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//
-//        switch segue.identifier {
-//        case "pokemonMoves":
-//            guard let pokemonMovesVC = segue.destination as? PokemonMovesTableViewController else { return }
-//            pokemonMovesVC.pokemon = pokemon
-//        default:
-//            print("Error")
-//        }
-//    }
 }
 
     // MARK: - Cell Protocols

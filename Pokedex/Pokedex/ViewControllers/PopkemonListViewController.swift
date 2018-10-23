@@ -32,7 +32,6 @@ class PokemonList: UIViewController {
         collection.delegate = self
         collection.dataSource = self
         searchBar.delegate = self
-        setTabBarImage()
         getPokemonDetails()
         searchBar.returnKeyType = UIReturnKeyType.done
     }
@@ -127,41 +126,7 @@ extension PokemonList: UICollectionViewDelegate, UICollectionViewDataSource {
         
         performSegue(withIdentifier: "pokemonDetails", sender: selectedPokemon)
         print(selectedPokemon)
-//        print("Selected Pokemon: \(selectedPokemon!)")
     }
-    
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//
-//        if isSearching {
-//            return filteredPokemon.count
-//        }
-//
-//        return genPokemonDetails.count
-//    }
-//
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: PokemonTableViewCell.identifier) as! PokemonTableViewCell
-//
-//        let pokemon = genPokemonDetails[indexPath.row]
-//
-//        cell.configure(with: pokemon)
-//
-//        if isSearching {
-//            cell.configure(with: filteredPokemon[indexPath.row])
-//        }
-//        else {
-//            cell.configure(with: pokemon)
-//        }
-//
-//        return cell
-//    }
-//
-//    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-//        self.selectedPokemon = genPokemonDetails[indexPath.row]
-//
-//        return indexPath
-//    }
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -196,9 +161,5 @@ extension PokemonList: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         view.endEditing(true)
-    }
-    
-    func setTabBarImage() {
-        navigationController?.navigationBar.setBackgroundImage(UIImage(named: "PokedexSearchBarBG"), for: .default)
     }
 }
