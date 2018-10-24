@@ -28,6 +28,7 @@ class PokemonDetailsViewController: UIViewController {
     let networkManager = NetworkManager()
     var pokemon: Pokemon?
     var pokemonEvolutions: [[String: String?]]?
+    
 
     // MARK: - View LifeCycle
     
@@ -47,13 +48,11 @@ class PokemonDetailsViewController: UIViewController {
     
     @IBAction func shinySwitch(_ sender: UISwitch) {
         guard let pokemon = pokemon else { return }
-
-        if sender.isOn {
-            pokemonImageView.image = UIImage(named: "\(pokemon.name)")
-        }
-        else {
-            pokemonImageView.image = UIImage(named: "\(pokemon.name)R")
-        }
+        
+        let normal = UIImage(named: "\(pokemon.name)R")
+        let shiny = UIImage(named: "\(pokemon.name)")
+        
+        pokemonImageView.image = sender.isOn ? shiny : normal
     }
     
     // MARK: - Methods

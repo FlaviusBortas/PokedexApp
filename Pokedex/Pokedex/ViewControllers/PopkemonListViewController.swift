@@ -96,13 +96,7 @@ extension PokemonList: UICollectionViewDelegate, UICollectionViewDataSource {
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        if isSearching {
-            return filteredPokemon.count
-        }
-        else {
-            return genPokemonDetails.count
-        }
+       return isSearching ? filteredPokemon.count : genPokemonDetails.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -111,24 +105,14 @@ extension PokemonList: UICollectionViewDelegate, UICollectionViewDataSource {
         let pokemon = genPokemonDetails[indexPath.row]
         cell.configure(with: pokemon)
         
-        if isSearching {
-            cell.configure(with: filteredPokemon[indexPath.row])
-        }
-        else {
-            cell.configure(with: pokemon)
-        }
+        isSearching ? cell.configure(with: filteredPokemon[indexPath.row]) : cell.configure(with: pokemon)
         
         return cell
     }
     
      func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if isSearching {
-            selectedPokemon = filteredPokemon[indexPath.row]
-        }
-        else {
-            selectedPokemon = self.genPokemonDetails[indexPath.row]
-        }
+        selectedPokemon = isSearching ? filteredPokemon[indexPath.row] : genPokemonDetails[indexPath.row]
         
         performSegue(withIdentifier: "pokemonDetails", sender: selectedPokemon)
     }
