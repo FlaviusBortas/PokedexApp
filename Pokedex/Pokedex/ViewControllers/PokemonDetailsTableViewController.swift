@@ -63,7 +63,6 @@ class PokemonDetailsViewController: UIViewController {
 
             self.pokemonEvolutions?.append(decodedEvo.secondEvo)
             self.pokemonEvolutions?.append(decodedEvo.thirdEvo)
-
         }
     }
     

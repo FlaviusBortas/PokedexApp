@@ -29,9 +29,12 @@ struct EvolutionData: Codable {
         let chainContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .chain)
         let evolvesToContainer = try chainContainer.nestedContainer(keyedBy: CodingKeys.self, forKey: .evolvesTo)
         // Breaks here
+        
         let evolvesToContainer2 = try evolvesToContainer.nestedContainer(keyedBy: CodingKeys.self, forKey: .evolvesTo)
-        secondEvo = try evolvesToContainer2.decode([String: String?].self, forKey: .evolution)
-        let evolutionDetails = try evolvesToContainer.nestedContainer(keyedBy: CodingKeys.self, forKey: .evolutionDetails)
+        secondEvo = try evolvesToContainer.decode([String: String?].self, forKey: .evolution)
+        
+        let evolutionDetails = try evolvesToContainer2.nestedContainer(keyedBy: CodingKeys.self, forKey: .evolutionDetails)
+        
         thirdEvo = try evolutionDetails.decode([String: String?].self, forKey: .evolution)
 
     }
