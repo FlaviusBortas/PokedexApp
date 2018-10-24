@@ -35,10 +35,6 @@ class PokemonList: UIViewController {
         getPokemonDetails()
         searchBar.returnKeyType = UIReturnKeyType.done
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        view.endEditing(true)
-    }
 
     // MARK: - Actions
     
