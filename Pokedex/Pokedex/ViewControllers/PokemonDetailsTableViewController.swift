@@ -1,5 +1,5 @@
 //
-//  PokemonDetailsTableViewController.swift
+//  PokemonDetailsViewController.swift
 //  Pokedex
 //
 //  Created by Flavius Bortas on 10/15/18.
@@ -7,63 +7,102 @@
 
 import UIKit
 
-class PokemonDetailsTableViewController: UITableViewController {
+class PokemonDetailsViewController: UIViewController {
 
     // MARK: - UI Elements
-    @IBOutlet weak var titleLabel: UINavigationItem!
-    @IBOutlet weak var idCell: UITableViewCell!
-    @IBOutlet weak var expCell: UITableViewCell!
-    @IBOutlet weak var heightCell: UITableViewCell!
-    @IBOutlet weak var weightCell: UITableViewCell!
-    @IBOutlet weak var typesCell: UITableViewCell!
-    @IBOutlet weak var movesCell: UITableViewCell!
-    @IBOutlet weak var spritesCell: UITableViewCell!
+
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var idLabel: UILabel!
+    @IBOutlet weak var heightLabel: UILabel!
+    @IBOutlet weak var typeLabel: UILabel!
+    @IBOutlet weak var weightLabel: UILabel!
+    @IBOutlet weak var expLabel: UILabel!
+    @IBOutlet weak var pokemonImageView: UIImageView!
+    @IBOutlet weak var nextEvolution: UIImageView!
+    @IBOutlet weak var nextEvolution2: UIImageView!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var segment: UISegmentedControl!
     
     // MARK: - Properties
     
+    let networkManager = NetworkManager()
     var pokemon: Pokemon?
-    
+    var pokemonEvolutions: [[String: String?]]?
+
     // MARK: - View LifeCycle
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        guard let pokemon = pokemon else { return }
+        getEvolutions(for: pokemon.id)
+        print(pokemonEvolutions)
+        loadDetails()
+        setTabBarImage()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    // MARK: - Actions
+    
+    @IBAction func segmentClicked(_ sender: Any) {
         tableView.reloadData()
-        loadDetails()
+    }
+    
+    @IBAction func shinySwitch(_ sender: UISwitch) {
+        guard let pokemon = pokemon else { return }
+
+        if sender.isOn {
+            pokemonImageView.image = UIImage(named: "\(pokemon.name)")
+        }
+        else {
+            pokemonImageView.image = UIImage(named: "\(pokemon.name)R")
+        }
     }
     
     // MARK: - Methods
     
-    func loadDetails() {
-        navigationController?.navigationBar.prefersLargeTitles = true
-        guard let pokemon = pokemon else { return }
-        
-        titleLabel.title = pokemon.pokemonTitle
-        idCell.textLabel?.text = pokemon.idString
-        expCell.textLabel?.text = pokemon.expString
-        heightCell.textLabel?.text = pokemon.heightString
-        weightCell.textLabel?.text = pokemon.weightString
-        typesCell.textLabel?.text = pokemon.typeString
-        movesCell.textLabel?.text = "Moves"
-        spritesCell.textLabel?.text = "Images"
+    func getEvolutions(for pokemon: Int) {
+        networkManager.getPokemonEvolutions(number: pokemon) { (evolutions, error) in
+            guard let decodedEvo = evolutions else { return }
+
+            self.pokemonEvolutions?.append(decodedEvo.secondEvo)
+            self.pokemonEvolutions?.append(decodedEvo.thirdEvo)
+
+        }
     }
     
-//    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-//        self.selectedPokemon = pokemon?.moves[indexPath.row]
-//
-//        return indexPath
-//    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    func loadDetails() {
         
-        switch segue.identifier {
-        case "pokemonMoves":
-            guard let pokemonMovesVC = segue.destination as? PokemonMovesTableViewController else { return }
-            pokemonMovesVC.pokemon = pokemon
-        default:
-            print("Error")
-        }
+        guard let pokemon = self.pokemon else { return }
+        
+        pokemonImageView.image = UIImage(named: "\(pokemon.name)R.png")
+        titleLabel.text = pokemon.pokemonTitle
+        idLabel.text = pokemon.idString
+        expLabel.text = pokemon.expString
+        heightLabel.text = pokemon.heightString
+        weightLabel.text = pokemon.weightString
+        typeLabel.text = pokemon.typeString
+    }
+    
+    func setTabBarImage() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(named: "PokedexSearchBarBG"), for: .default)
+    }
+}
+
+    // MARK: - Cell Protocols
+
+extension PokemonDetailsViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let moves = pokemon?.moves, let abilities = pokemon?.abilities else { return 0 }
+        
+        return segment.selectedSegmentIndex == 0 ? moves.count :  abilities.count
+    }
+    
+      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: PokemonMovesTableViewCell.identifier, for: indexPath) as! PokemonMovesTableViewCell
+        let currentIndex = indexPath.row
+        
+        guard let pokemon = pokemon else { return UITableViewCell() }
+        
+        cell.configure(with: pokemon, index: currentIndex)
+        
+        return cell
     }
 }

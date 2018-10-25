@@ -29,12 +29,22 @@ class NetworkManager {
         router.request(.getPokemon(number)) { (data, response, error) in
             let (pokemon, error) = self.decodeTask(Pokemon.self, from: (data, response, error))
             
-            print(pokemon?.debugDescription)
-
+//            print(pokemon?.debugDescription)
             
             completion(pokemon, error)
         }
     }
+    
+    func getPokemonEvolutions(number: Int, completion: @escaping (_ evolutions: EvolutionData?, _ error: String?) -> ()) {
+        router.request(.getEvolutions(number)) { (data, response, error) in
+            let (evolutions, error) = self.decodeTask(EvolutionData.self, from: (data, response, error))
+            
+                print(evolutions.debugDescription)
+            
+            completion(evolutions, error)
+        }
+    }
+    
 
     func getPokemonImage(number: Int, completion: @escaping (_ pokemonImage: Data?, _ error: String?) -> ()) {
         router.request(.getPokemonImage(number)) { (data, response, error) in
