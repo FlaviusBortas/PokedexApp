@@ -7,40 +7,45 @@
 
 import Foundation
 
+class Evolution: Codable {
+    var evolves_to: [Evolution]
+    var species: Species
+}
+
+struct Species: Codable {
+    var name: String
+}
+
 struct EvolutionData: Codable {
     
-//    var chain: [String: String?]
-//    var evolvesTo: [[String: String?]]
-//    var evolutionDetails: [String: String?]
-    var secondEvo: [String: String?]
-    var thirdEvo: [String: String?]
-
+    var evolution: Evolution
     
     enum CodingKeys: String, CodingKey {
         case chain
-        case evolvesTo = "evolves_to"
         case evolution = "species"
-        case evolutionDetails = "evolution_details"
-        
     }
+    
+    struct EvolvesToFirstLevel: Codable {
+        var name: String
+    }
+    
+    struct EvolvesToSecondLevel: Codable {
+        var name: String
+    }
+    
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let chainContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .chain)
-        let evolvesToContainer = try chainContainer.nestedContainer(keyedBy: CodingKeys.self, forKey: .evolvesTo)
-        // Breaks here
-        let evolvesToContainer2 = try evolvesToContainer.nestedContainer(keyedBy: CodingKeys.self, forKey: .evolvesTo)
-        secondEvo = try evolvesToContainer2.decode([String: String?].self, forKey: .evolution)
-        let evolutionDetails = try evolvesToContainer.nestedContainer(keyedBy: CodingKeys.self, forKey: .evolutionDetails)
-        thirdEvo = try evolutionDetails.decode([String: String?].self, forKey: .evolution)
-
+        
+        evolution = try container.decode(Evolution.self, forKey: .chain)
+        //        print(evolution)
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try container.encode(self.secondEvo, forKey: .evolution)
-        try container.encode(self.thirdEvo, forKey: .evolution)
-
+        try container.encode(self.evolution, forKey: .evolution)
+        
     }
 }
+

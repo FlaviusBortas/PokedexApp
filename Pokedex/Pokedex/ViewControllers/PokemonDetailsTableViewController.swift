@@ -62,9 +62,6 @@ class PokemonDetailsViewController: UIViewController {
         networkManager.getPokemonEvolutions(number: pokemon) { (evolutions, error) in
             guard let decodedEvo = evolutions else { return }
 
-            self.pokemonEvolutions?.append(decodedEvo.secondEvo)
-            self.pokemonEvolutions?.append(decodedEvo.thirdEvo)
-
         }
     }
     
