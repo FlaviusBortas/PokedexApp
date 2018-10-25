@@ -7,6 +7,11 @@
 
 import UIKit
 
+// GEN 1 Evolutions = 1 - 78
+// Gen 2 Evolutions = 79 - 129
+// GEN 3 Evolutions = 130 - 202
+// GEN 4 Evolutions = 203 - 254
+
 class PokemonDetailsViewController: UIViewController {
 
     // MARK: - UI Elements
@@ -29,20 +34,12 @@ class PokemonDetailsViewController: UIViewController {
     let networkManager = NetworkManager()
     var pokemon: Pokemon?
     var evolutions = [String]()
+    var evolutionChainNumber = 1
     
 
     // MARK: - View LifeCycle
     
-//    override func viewDidLoad() {
-//        guard let pokemon = pokemon else { return }
-//        getEvolutions(for: pokemon.id)
-//        loadDetails()
-//        setTabBarImage()
-//    }
-    
     override func viewWillAppear(_ animated: Bool) {
-        guard let pokemon = pokemon else { return }
-        getEvolutions(for: pokemon.id)
         loadDetails()
         setTabBarImage()
     }
@@ -62,22 +59,7 @@ class PokemonDetailsViewController: UIViewController {
         pokemonImageView.image = sender.isOn ? shiny : normal
     }
     
-    @IBAction func backButtonClicked(_ sender: Any) {
-        evolutions.removeAll()
-    }
-    
     // MARK: - Methods
-    
-    func getEvolutions(for pokemon: Int) {
-        networkManager.getPokemonEvolutions(number: pokemon) { (evolutions, error) in
-            guard let decodedEvo = evolutions else { return }
-            print(pokemon)
-            DispatchQueue.main.async {
-                self.nextEvolution.image = UIImage(named: "\(decodedEvo.evolution.evolves_to[0].species.name)R.png")
-                print("\(decodedEvo.evolution.evolves_to[0].species.name)")
-            }
-        }
-    }
     
     func loadDetails() {
         guard let pokemon = self.pokemon else { return }

@@ -22,6 +22,7 @@ class PokemonList: UIViewController {
     var genPokemonDetails = [Pokemon]()
     var selectedPokemon: Pokemon?
     var selectedGeneration = Generation.one
+    var selectedEvolutionRange = Generation.one
     var filteredPokemon = [Pokemon]()
     var isSearching = false
     
@@ -44,6 +45,7 @@ class PokemonList: UIViewController {
         genPokemonDetails.removeAll()
         selectedGeneration = generation
         getPokemonDetails()
+        getEvolutions()
     }
     
     // MARK: - Methods
@@ -70,20 +72,25 @@ class PokemonList: UIViewController {
         }
     }
     
-//    func getAllPokemonImages() {
+    func getEvolutions() {
+        for index in selectedEvolutionRange.evolutionRange {
+            var pokemonIndex = 1
+            downloadGroup.enter()
+            networkManager.getPokemonEvolutions(number: index) { (evolutions, error) in
+                guard let decodedEvo = evolutions, let generationRange = self.selectedGeneration.range.last else { return }
+                
+                if pokemonIndex <= generationRange {
+                    if decodedEvo.evolution.evolves_to[0].species.name == self.genPokemonDetails[pokemonIndex].name {
+                        self.genPokemonDetails[pokemonIndex].evolutions = decodedEvo
+                    }
+                    pokemonIndex += 1
+                }
+//                DispatchQueue.main.async {
 //
-//        for pokemon in genPokemonDetails {
-//            downloadGroup.enter()
-//            networkManager.getPokemonImage(number: pokemon.id) { (data, error) in
-//                pokemon.imageData = data
-//                self.downloadGroup.leave()
-//            }
-//        }
-//
-//        downloadGroup.notify(queue: .main) {
-//            self.collection.reloadData()
-//        }
-//    }
+//                }
+            }
+        }
+    }
 }
 
     // MARK - Cell Protocols

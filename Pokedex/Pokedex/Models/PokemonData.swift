@@ -28,7 +28,7 @@ class Pokemon: Codable {
 
     // MARK: - Non API Related DATA
     
-    var imageData: Data? = nil
+    var evolutions: EvolutionData? = nil
 }
 
     // MARK: - JSON Parsing Structure

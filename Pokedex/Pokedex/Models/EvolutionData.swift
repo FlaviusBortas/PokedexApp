@@ -20,13 +20,9 @@ struct EvolutionData: Codable {
 
     var evolution: Evolution
 
-    
     enum CodingKeys: String, CodingKey {
         case chain
-        case evolvesTo = "evolves_to"
         case evolution = "species"
-        case evolutionDetails = "evolution_details"
-        
     }
     
     struct EvolvesToFirstLevel: Codable {

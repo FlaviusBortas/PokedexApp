@@ -203,7 +203,6 @@
                                 </constraints>
                                 <state key="normal" title="Button" image="back"/>
                                 <connections>
-                                    <action selector="backButtonClicked:" destination="PkX-Fi-DV7" eventType="touchUpInside" id="EdP-52-YCE"/>
                                     <segue destination="ZBW-dB-Pdu" kind="show" id="4pL-82-4wC"/>
                                 </connections>
                             </button>
