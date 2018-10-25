@@ -16,7 +16,7 @@ enum Generation: Int {
     var range: CountableRange<Int> {
         switch self {
         case .one:
-            return CountableRange(1...151)
+            return CountableRange(1...20)
         case .two:
             return CountableRange(152...251)
         case .three:

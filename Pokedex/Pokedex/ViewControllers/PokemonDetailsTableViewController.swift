@@ -25,17 +25,24 @@ class PokemonDetailsViewController: UIViewController {
     
     // MARK: - Properties
     
+    let downloadGroup = DispatchGroup()
     let networkManager = NetworkManager()
     var pokemon: Pokemon?
-    var pokemonEvolutions: [[String: String?]]?
+    var evolutions = [String]()
     
 
     // MARK: - View LifeCycle
     
+//    override func viewDidLoad() {
+//        guard let pokemon = pokemon else { return }
+//        getEvolutions(for: pokemon.id)
+//        loadDetails()
+//        setTabBarImage()
+//    }
+    
     override func viewWillAppear(_ animated: Bool) {
         guard let pokemon = pokemon else { return }
         getEvolutions(for: pokemon.id)
-        print(pokemonEvolutions)
         loadDetails()
         setTabBarImage()
     }
@@ -55,19 +62,24 @@ class PokemonDetailsViewController: UIViewController {
         pokemonImageView.image = sender.isOn ? shiny : normal
     }
     
+    @IBAction func backButtonClicked(_ sender: Any) {
+        evolutions.removeAll()
+    }
+    
     // MARK: - Methods
     
     func getEvolutions(for pokemon: Int) {
         networkManager.getPokemonEvolutions(number: pokemon) { (evolutions, error) in
             guard let decodedEvo = evolutions else { return }
-
-            self.pokemonEvolutions?.append(decodedEvo.secondEvo)
-            self.pokemonEvolutions?.append(decodedEvo.thirdEvo)
+            print(pokemon)
+            DispatchQueue.main.async {
+                self.nextEvolution.image = UIImage(named: "\(decodedEvo.evolution.evolves_to[0].species.name)R.png")
+                print("\(decodedEvo.evolution.evolves_to[0].species.name)")
+            }
         }
     }
     
     func loadDetails() {
-        
         guard let pokemon = self.pokemon else { return }
         
         pokemonImageView.image = UIImage(named: "\(pokemon.name)R.png")
