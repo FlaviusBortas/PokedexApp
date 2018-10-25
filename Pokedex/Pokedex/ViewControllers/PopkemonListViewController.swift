@@ -22,6 +22,7 @@ class PokemonList: UIViewController {
     var genPokemonDetails = [Pokemon]()
     var selectedPokemon: Pokemon?
     var selectedGeneration = Generation.one
+    var selectedEvolutionRange = Generation.one
     var filteredPokemon = [Pokemon]()
     var isSearching = false
     
@@ -35,10 +36,6 @@ class PokemonList: UIViewController {
         getPokemonDetails()
         searchBar.returnKeyType = UIReturnKeyType.done
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        view.endEditing(true)
-    }
 
     // MARK: - Actions
     
@@ -48,6 +45,7 @@ class PokemonList: UIViewController {
         genPokemonDetails.removeAll()
         selectedGeneration = generation
         getPokemonDetails()
+        getEvolutions()
     }
     
     // MARK: - Methods
@@ -74,20 +72,25 @@ class PokemonList: UIViewController {
         }
     }
     
-//    func getAllPokemonImages() {
+    func getEvolutions() {
+        for index in selectedEvolutionRange.evolutionRange {
+            var pokemonIndex = 1
+            downloadGroup.enter()
+            networkManager.getPokemonEvolutions(number: index) { (evolutions, error) in
+                guard let decodedEvo = evolutions, let generationRange = self.selectedGeneration.range.last else { return }
+                
+                if pokemonIndex <= generationRange {
+                    if decodedEvo.evolution.evolves_to[0].species.name == self.genPokemonDetails[pokemonIndex].name {
+                        self.genPokemonDetails[pokemonIndex].evolutions = decodedEvo
+                    }
+                    pokemonIndex += 1
+                }
+//                DispatchQueue.main.async {
 //
-//        for pokemon in genPokemonDetails {
-//            downloadGroup.enter()
-//            networkManager.getPokemonImage(number: pokemon.id) { (data, error) in
-//                pokemon.imageData = data
-//                self.downloadGroup.leave()
-//            }
-//        }
-//
-//        downloadGroup.notify(queue: .main) {
-//            self.collection.reloadData()
-//        }
-//    }
+//                }
+            }
+        }
+    }
 }
 
     // MARK - Cell Protocols
@@ -96,13 +99,7 @@ extension PokemonList: UICollectionViewDelegate, UICollectionViewDataSource {
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        if isSearching {
-            return filteredPokemon.count
-        }
-        else {
-            return genPokemonDetails.count
-        }
+       return isSearching ? filteredPokemon.count : genPokemonDetails.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -111,21 +108,16 @@ extension PokemonList: UICollectionViewDelegate, UICollectionViewDataSource {
         let pokemon = genPokemonDetails[indexPath.row]
         cell.configure(with: pokemon)
         
-        if isSearching {
-            cell.configure(with: filteredPokemon[indexPath.row])
-        }
-        else {
-            cell.configure(with: pokemon)
-        }
+        isSearching ? cell.configure(with: filteredPokemon[indexPath.row]) : cell.configure(with: pokemon)
         
         return cell
     }
     
      func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedPokemon = genPokemonDetails[indexPath.row]
+        
+        selectedPokemon = isSearching ? filteredPokemon[indexPath.row] : genPokemonDetails[indexPath.row]
         
         performSegue(withIdentifier: "pokemonDetails", sender: selectedPokemon)
-        print(selectedPokemon)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -133,7 +125,6 @@ extension PokemonList: UICollectionViewDelegate, UICollectionViewDataSource {
         switch segue.identifier {
         case "pokemonDetails":
             guard let pokemonDetailsVC = segue.destination as? PokemonDetailsViewController else { return }
-            print(selectedPokemon)
             pokemonDetailsVC.pokemon = selectedPokemon
         default:
             print("Error")
@@ -148,7 +139,6 @@ extension PokemonList: UISearchBarDelegate {
         
         if searchBar.text == nil || searchBar.text == "" {
             isSearching = false
-            view.endEditing(true)
             collection.reloadData()
         }
         else {
@@ -157,9 +147,5 @@ extension PokemonList: UISearchBarDelegate {
             filteredPokemon = genPokemonDetails.filter({$0.name.contains(searchText.lowercased())})
             collection.reloadData()
         }
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        view.endEditing(true)
     }
 }
