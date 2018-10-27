@@ -25,17 +25,4 @@ enum Generation: Int {
             return CountableRange(387...493)
         }
     }
-    
-    var evolutionRange: CountableRange<Int> {
-        switch self {
-        case .one:
-            return CountableRange(1...78)
-        case .two:
-            return CountableRange(79...129)
-        case .three:
-            return CountableRange(130...202)
-        case .four:
-            return CountableRange(203...254)
-        }
-    }
 }

@@ -20,6 +20,7 @@ class PokemonDetailsViewController: UIViewController {
     @IBOutlet weak var pokemonImageView: UIImageView!
     @IBOutlet weak var nextEvolution: UIImageView!
     @IBOutlet weak var nextEvolution2: UIImageView!
+    @IBOutlet weak var nextEvolution3: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segment: UISegmentedControl!
     
@@ -32,9 +33,14 @@ class PokemonDetailsViewController: UIViewController {
     // MARK: - View LifeCycle
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         guard let pokemon = pokemon else { return }
-        getEvolutions(for: pokemon.id)
-        print(pokemonEvolutions)
+        
+        if let speciesId = pokemon.pokemonSpecies?.speciesId {
+            getEvolutions(for: speciesId)
+        }
+        
         loadDetails()
         setTabBarImage()
     }
@@ -59,8 +65,20 @@ class PokemonDetailsViewController: UIViewController {
     // MARK: - Methods
     
     func getEvolutions(for pokemon: Int) {
-        networkManager.getPokemonEvolutions(number: pokemon) { (evolutions, error) in
-            guard let decodedEvo = evolutions else { return }
+        networkManager.getPokemonEvolutions(speciesNumber: pokemon) { (evolutions, error) in
+            guard let evolutions = evolutions else { return }
+            
+            DispatchQueue.main.async {
+                
+                let firstForm = evolutions.evolution
+                self.nextEvolution.image = UIImage(named: "\(firstForm.species.name)R.png")
+                
+                guard let secondForm = firstForm.evolves_to.first else { return }
+                self.nextEvolution2.image = UIImage(named: "\(secondForm.species.name)R.png")
+                
+                guard let thirdFrom = secondForm.evolves_to.first else { return }
+                self.nextEvolution3.image = UIImage(named: "\(thirdFrom.species.name)R.png")
+            }
 
         }
     }

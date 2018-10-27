@@ -14,7 +14,7 @@ class PokemonMovesTableViewCell: UITableViewCell {
     @IBOutlet weak var pokemonMovesLabel: UILabel!
     
     func configure(with pokemon: Pokemon, index: Int) {
-        pokemonMovesLabel.text = pokemon.moves[index].move["name"]
+        pokemonMovesLabel.text = pokemon.moves[index].move.name
         
     }
 

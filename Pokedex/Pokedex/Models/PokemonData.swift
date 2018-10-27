@@ -18,11 +18,14 @@ class Pokemon: Codable {
     var weight: Int
     var sprites: [String: String?]
     var types: [Types]
-    var moves: [Moves]
+    var moves: [PokemonMove]
     var abilities: [Abilities]
+    var species: NamedApiResource
+    var pokemonSpecies: PokemonSpecies?
+    
     
     enum CodingKeys: String, CodingKey {
-        case id, name, height, weight, sprites, types, moves, abilities
+        case id, name, height, weight, sprites, types, moves, abilities, species
         case baseExperience = "base_experience"
     }
 
@@ -32,6 +35,11 @@ class Pokemon: Codable {
 }
 
     // MARK: - JSON Parsing Structure
+
+struct NamedApiResource: Codable {
+    var name: String
+    var url: String
+}
 
 struct Types: Codable {
     var slot: Int
@@ -44,15 +52,23 @@ struct Abilities: Codable {
     var ability: [String: String]
 }
 
-struct Moves: Codable {
-    var move: [String: String]
+struct PokemonMove: Codable {
+    var move: NamedApiResource
 }
 
     // MARK: - Debugging
 
 extension Pokemon: CustomDebugStringConvertible {
     var debugDescription: String {
-        return "ID: , Name: ,\n Sprites:, BaseExp:, Height: , Weight: , Types:, Moves: \(moves), Abilities: \(abilities)"
+        return "ID: , Name: ,\n Sprites:, BaseExp:, Height: , Weight: , Types:, Moves:, Abilities:, Species: \(species)"
+    }
+}
+
+extension Pokemon {
+    func fetchSpeciesData(with manager: NetworkManager) {
+        manager.getPokemonSpecies(for: id) { (pokemonSpecies, error) in
+            self.pokemonSpecies = pokemonSpecies
+        }
     }
 }
 

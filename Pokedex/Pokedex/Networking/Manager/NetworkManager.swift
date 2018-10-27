@@ -23,20 +23,33 @@ enum Result<String> {
 }
 
 class NetworkManager {
-    let router = Router<PokemonAPI>()
+    private let router = Router<PokemonAPI>()
     
     func getPokemon(number: Int, completion: @escaping (_ pokemon: Pokemon?, _ error: String?) -> ()) {
-        router.request(.getPokemon(number)) { (data, response, error) in
-            let (pokemon, error) = self.decodeTask(Pokemon.self, from: (data, response, error))
-            
-//            print(pokemon?.debugDescription)
-            
-            completion(pokemon, error)
+        // if number for api call is contained in database
+        // then return object number for apir call from database
+        // else perfom api call and in the closure save the api pbject to database
+        func loadPokemonFromDatabase(number: Int) -> Pokemon? {
+            return nil
+        }
+        
+        if let pokemon = loadPokemonFromDatabase(number: number) {
+//            completion(pokemon, nik)
+        } else {
+            router.request(.getPokemon(number)) { (data, response, error) in
+                let (pokemon, error) = self.decodeTask(Pokemon.self, from: (data, response, error))
+                
+                print(pokemon?.debugDescription)
+                
+                completion(pokemon, error)
+                
+                // save item to databse
+            }
         }
     }
     
-    func getPokemonEvolutions(number: Int, completion: @escaping (_ evolutions: EvolutionData?, _ error: String?) -> ()) {
-        router.request(.getEvolutions(number)) { (data, response, error) in
+    func getPokemonEvolutions(speciesNumber: Int , completion: @escaping (_ evolutions: EvolutionData?, _ error: String?) -> ()) {
+        router.request(.getEvolutions(speciesNumber)) { (data, response, error) in
             let (evolutions, error) = self.decodeTask(EvolutionData.self, from: (data, response, error))
             
                 print(evolutions.debugDescription)
@@ -45,30 +58,15 @@ class NetworkManager {
         }
     }
     
-
-    func getPokemonImage(number: Int, completion: @escaping (_ pokemonImage: Data?, _ error: String?) -> ()) {
-        router.request(.getPokemonImage(number)) { (data, response, error) in
+    func getPokemonSpecies(for id: Int, completion: @escaping (_ pokemonSpecies: PokemonSpecies?, _ error: String?) -> ()) {
+        router.request(.getSpecies(id)) { (data, response, error) in
+            let (pokemonSpecies, error) = self.decodeTask(PokemonSpecies.self, from: (data, response, error))
             
-            if error != nil {
-                completion(nil, "Please check your network connection.")
-            }
-            
-            if let response = response as? HTTPURLResponse {
-                let result = self.handleNetworkResponse(response)
-                
-                switch result {
-                case .success:
-                    completion(data, nil)
-                    
-                case .failure(let networkFailureError):
-                    completion(nil, networkFailureError)
-                }
-            } else {
-                completion(nil, "No response.")
-            }
-            
+            completion(pokemonSpecies, error)
+//            print(pokemonSpecies?.speciesId, pokemonSpecies?.name)
         }
     }
+    
     
     private typealias NetworkResult = (data: Data?, response: URLResponse?, error: Error?)
     
