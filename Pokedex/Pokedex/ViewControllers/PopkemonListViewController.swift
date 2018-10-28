@@ -22,7 +22,6 @@ class PokemonList: UIViewController {
     var genPokemonDetails = [Pokemon]()
     var selectedPokemon: Pokemon?
     var selectedGeneration = Generation.one
-    var selectedEvolutionRange = Generation.one
     var filteredPokemon = [Pokemon]()
     var isSearching = false
     
@@ -34,9 +33,9 @@ class PokemonList: UIViewController {
         collection.dataSource = self
         searchBar.delegate = self
         getPokemonDetails()
-        searchBar.returnKeyType = UIReturnKeyType.done
+        searchBar.returnKeyType = .done
     }
-
+    
     // MARK: - Actions
     
     @IBAction func userSelectedGeneration(_ sender: UISegmentedControl) {
@@ -72,13 +71,13 @@ class PokemonList: UIViewController {
     }
 }
 
-    // MARK - Cell Protocols
+// MARK - Cell Protocols
 
 extension PokemonList: UICollectionViewDelegate, UICollectionViewDataSource {
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-       return isSearching ? filteredPokemon.count : genPokemonDetails.count
+        return isSearching ? filteredPokemon.count : genPokemonDetails.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -92,7 +91,7 @@ extension PokemonList: UICollectionViewDelegate, UICollectionViewDataSource {
         return cell
     }
     
-     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         selectedPokemon = isSearching ? filteredPokemon[indexPath.row] : genPokemonDetails[indexPath.row]
         
@@ -128,3 +127,13 @@ extension PokemonList: UISearchBarDelegate {
         }
     }
 }
+
+// MARK: - Persistence
+
+extension FileManager {
+    static var documentDirectoryURL: URL {
+        return `default`.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    }
+}
+
+

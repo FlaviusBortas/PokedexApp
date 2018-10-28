@@ -31,7 +31,7 @@ class Pokemon: Codable {
 
     // MARK: - Non API Related DATA
     
-    var evolutions: EvolutionData? = nil
+    var evolutions: EvolutionChain? = nil
 }
 
     // MARK: - JSON Parsing Structure
@@ -105,10 +105,10 @@ extension Pokemon {
         
         switch self.types.count {
         case 1:
-            let firstType = self.types[0].type["name"]!
+            guard let firstType = self.types.first?.type["name"] else { return " " }
             return typesString + firstType.capitalized
         case 2:
-            let firstType = self.types[0].type["name"]!
+            guard let firstType = self.types.first?.type["name"] else { return " " }
             let secondType = self.types[1].type["name"]!
             
             return typesString + firstType.capitalized + ", " + secondType.capitalized

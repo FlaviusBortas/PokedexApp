@@ -18,14 +18,17 @@ protocol NetworkRouter: AnyObject {
 
 class Router<EndPoint: EndPointType>: NetworkRouter {
     private var task: URLSessionTask?
+
     
     func request(_ route: EndPoint, completion: @escaping NetworkRouterCompletion) {
         let session = URLSession.shared
         
         do {
             let request = try self.buildRequest(from: route)
+            
             task = session.dataTask(with: request, completionHandler: {data, response, error in
                 completion(data, response, error)
+                
             })
         } catch {
             completion(nil, nil, error)
@@ -55,8 +58,8 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
     }
     
     private func configureParameters(bodyParameters: Parameters?,
-                                         urlParameters: Parameters?,
-                                         request: inout URLRequest) throws {
+                                     urlParameters: Parameters?,
+                                     request: inout URLRequest) throws {
         do {
             if let bodyParameters = bodyParameters {
                 try JSONParameterEncoder.encode(urlRequest: &request, with: bodyParameters)

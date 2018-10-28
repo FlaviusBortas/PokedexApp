@@ -24,46 +24,66 @@ enum Result<String> {
 
 class NetworkManager {
     private let router = Router<PokemonAPI>()
+    private let storage = Storage.self
     
     func getPokemon(number: Int, completion: @escaping (_ pokemon: Pokemon?, _ error: String?) -> ()) {
-        // if number for api call is contained in database
-        // then return object number for apir call from database
-        // else perfom api call and in the closure save the api pbject to database
-        func loadPokemonFromDatabase(number: Int) -> Pokemon? {
-            return nil
-        }
+        let fileType = storage.FileType.pokemon(number)
         
-        if let pokemon = loadPokemonFromDatabase(number: number) {
-//            completion(pokemon, nik)
-        } else {
+        if storage.fileExists(fileType) {
+            let pokemon = storage.retrieve(fileType, as: Pokemon.self)
+            completion(pokemon, nil)
+        }
+        else {
             router.request(.getPokemon(number)) { (data, response, error) in
                 let (pokemon, error) = self.decodeTask(Pokemon.self, from: (data, response, error))
                 
-                print(pokemon?.debugDescription)
-                
                 completion(pokemon, error)
                 
-                // save item to databse
+                if let pokemon = pokemon {
+                    self.storage.store(pokemon, as: fileType)
+                }
             }
         }
     }
     
-    func getPokemonEvolutions(speciesNumber: Int , completion: @escaping (_ evolutions: EvolutionData?, _ error: String?) -> ()) {
-        router.request(.getEvolutions(speciesNumber)) { (data, response, error) in
-            let (evolutions, error) = self.decodeTask(EvolutionData.self, from: (data, response, error))
+    func getPokemonEvolutions(speciesNumber: Int , completion: @escaping (_ evolutions: EvolutionChain?, _ error: String?) -> ()) {
+        let fileType = storage.FileType.evolution(speciesNumber)
+        
+        if storage.fileExists(fileType) {
+            if let evolution = storage.retrieve(fileType, as: EvolutionChain?.self) {
+                completion(evolution, nil)
+            } else {
+                completion(nil, nil)
+            }
             
-                print(evolutions.debugDescription)
-            
-            completion(evolutions, error)
+        } else {
+            router.request(.getEvolutions(speciesNumber)) { (data, response, error) in
+                let (evolutions, error) = self.decodeTask(EvolutionChain.self, from: (data, response, error))
+                
+                completion(evolutions, error)
+                
+                if let evolution = evolutions {
+                    self.storage.store(evolution, as: fileType)
+                }
+            }
         }
     }
     
     func getPokemonSpecies(for id: Int, completion: @escaping (_ pokemonSpecies: PokemonSpecies?, _ error: String?) -> ()) {
-        router.request(.getSpecies(id)) { (data, response, error) in
-            let (pokemonSpecies, error) = self.decodeTask(PokemonSpecies.self, from: (data, response, error))
+        let fileType = storage.FileType.species(id)
+        
+        if storage.fileExists(fileType) {
+            let species = storage.retrieve(fileType, as: PokemonSpecies.self)
+            completion(species, nil)
+        } else {
             
-            completion(pokemonSpecies, error)
-//            print(pokemonSpecies?.speciesId, pokemonSpecies?.name)
+            router.request(.getSpecies(id)) { (data, response, error) in
+                let (pokemonSpecies, error) = self.decodeTask(PokemonSpecies.self, from: (data, response, error))
+                
+                completion(pokemonSpecies, error)
+                guard let species = pokemonSpecies else { return }
+                self.storage.store(species, as: fileType)
+            }
         }
     }
     

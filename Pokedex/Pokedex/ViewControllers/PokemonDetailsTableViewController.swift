@@ -70,13 +70,13 @@ class PokemonDetailsViewController: UIViewController {
             
             DispatchQueue.main.async {
                 
-                let firstForm = evolutions.evolution
+                let firstForm = evolutions.chain
                 self.nextEvolution.image = UIImage(named: "\(firstForm.species.name)R.png")
                 
-                guard let secondForm = firstForm.evolves_to.first else { return }
+                guard let secondForm = firstForm.evolvesTo.first else { return }
                 self.nextEvolution2.image = UIImage(named: "\(secondForm.species.name)R.png")
                 
-                guard let thirdFrom = secondForm.evolves_to.first else { return }
+                guard let thirdFrom = secondForm.evolvesTo.first else { return }
                 self.nextEvolution3.image = UIImage(named: "\(thirdFrom.species.name)R.png")
             }
 
