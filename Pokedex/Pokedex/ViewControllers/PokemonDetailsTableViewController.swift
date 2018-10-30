@@ -28,7 +28,6 @@ class PokemonDetailsViewController: UIViewController {
     
     let networkManager = NetworkManager()
     var pokemon: Pokemon?
-    var pokemonEvolutions: [[String: String?]]?
 
     // MARK: - View LifeCycle
     
