@@ -28,6 +28,9 @@ class PokemonDetailsViewController: UIViewController {
     
     let networkManager = NetworkManager()
     var pokemon: Pokemon?
+    var firstForm: String?
+    var secondForm: String?
+    var thirdForm: String?
 
     // MARK: - View LifeCycle
     
@@ -55,9 +58,28 @@ class PokemonDetailsViewController: UIViewController {
 
         if sender.isOn {
             pokemonImageView.image = UIImage(named: "\(pokemon.name)")
+            
+            guard let firstForm = firstForm else { return }
+            nextEvolution.image = UIImage(named: firstForm)
+            
+            guard let secondForm = secondForm else { return }
+            nextEvolution2.image = UIImage(named: secondForm)
+            
+            guard let thirdForm = thirdForm else { return }
+            nextEvolution3.image = UIImage(named: thirdForm)
         }
         else {
-            pokemonImageView.image = UIImage(named: "\(pokemon.name)R")
+            pokemonImageView.image = UIImage(named: "\(pokemon.name)R.png")
+            
+            guard let firstForm = firstForm else { return }
+            nextEvolution.image = UIImage(named: "\(firstForm)R.png")
+            
+            guard let secondForm = secondForm else { return }
+            nextEvolution2.image = UIImage(named: "\(secondForm)R.png")
+            
+            guard let thirdForm = thirdForm else { return }
+            nextEvolution3.image = UIImage(named: "\(thirdForm)R.png")
+            
         }
     }
     
@@ -70,12 +92,15 @@ class PokemonDetailsViewController: UIViewController {
             DispatchQueue.main.async {
                 
                 let firstForm = evolutions.chain
+                self.firstForm = firstForm.species.name
                 self.nextEvolution.image = UIImage(named: "\(firstForm.species.name)R.png")
                 
                 guard let secondForm = firstForm.evolvesTo.first else { return }
+                self.secondForm = secondForm.species.name
                 self.nextEvolution2.image = UIImage(named: "\(secondForm.species.name)R.png")
                 
                 guard let thirdFrom = secondForm.evolvesTo.first else { return }
+                self.thirdForm = thirdFrom.species.name
                 self.nextEvolution3.image = UIImage(named: "\(thirdFrom.species.name)R.png")
             }
 
