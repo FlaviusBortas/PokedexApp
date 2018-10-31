@@ -54,33 +54,8 @@ class PokemonDetailsViewController: UIViewController {
     }
     
     @IBAction func shinySwitch(_ sender: UISwitch) {
-        guard let pokemon = pokemon else { return }
-
-        if sender.isOn {
-            pokemonImageView.image = UIImage(named: "\(pokemon.name)")
-            
-            guard let firstForm = firstForm else { return }
-            nextEvolution.image = UIImage(named: firstForm)
-            
-            guard let secondForm = secondForm else { return }
-            nextEvolution2.image = UIImage(named: secondForm)
-            
-            guard let thirdForm = thirdForm else { return }
-            nextEvolution3.image = UIImage(named: thirdForm)
-        }
-        else {
-            pokemonImageView.image = UIImage(named: "\(pokemon.name)R.png")
-            
-            guard let firstForm = firstForm else { return }
-            nextEvolution.image = UIImage(named: "\(firstForm)R.png")
-            
-            guard let secondForm = secondForm else { return }
-            nextEvolution2.image = UIImage(named: "\(secondForm)R.png")
-            
-            guard let thirdForm = thirdForm else { return }
-            nextEvolution3.image = UIImage(named: "\(thirdForm)R.png")
-            
-        }
+        
+        sender.isOn ? showShiny() : showRegular()
     }
     
     // MARK: - Methods
@@ -105,6 +80,36 @@ class PokemonDetailsViewController: UIViewController {
             }
 
         }
+    }
+    
+    func showShiny() {
+        guard let pokemon = pokemon else { return }
+
+        pokemonImageView.image = UIImage(named: "\(pokemon.name)")
+        
+        guard let firstForm = firstForm else { return }
+        nextEvolution.image = UIImage(named: firstForm)
+        
+        guard let secondForm = secondForm else { return }
+        nextEvolution2.image = UIImage(named: secondForm)
+        
+        guard let thirdForm = thirdForm else { return }
+        nextEvolution3.image = UIImage(named: thirdForm)
+    }
+    
+    func showRegular() {
+        guard let pokemon = pokemon else { return }
+
+        pokemonImageView.image = UIImage(named: "\(pokemon.name)R.png")
+        
+        guard let firstForm = firstForm else { return }
+        nextEvolution.image = UIImage(named: "\(firstForm)R.png")
+        
+        guard let secondForm = secondForm else { return }
+        nextEvolution2.image = UIImage(named: "\(secondForm)R.png")
+        
+        guard let thirdForm = thirdForm else { return }
+        nextEvolution3.image = UIImage(named: "\(thirdForm)R.png")
     }
     
     func loadDetails() {
