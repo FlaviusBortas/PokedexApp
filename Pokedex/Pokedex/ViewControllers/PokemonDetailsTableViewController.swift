@@ -55,7 +55,7 @@ class PokemonDetailsViewController: UIViewController {
     
     @IBAction func shinySwitch(_ sender: UISwitch) {
         
-        sender.isOn ? showShiny() : showRegular()
+        sender.isOn ? showShinyImages() : showRegularImages()
     }
     
     // MARK: - Methods
@@ -82,7 +82,7 @@ class PokemonDetailsViewController: UIViewController {
         }
     }
     
-    func showShiny() {
+    func showShinyImages() {
         guard let pokemon = pokemon else { return }
 
         pokemonImageView.image = UIImage(named: "\(pokemon.name)")
@@ -97,7 +97,7 @@ class PokemonDetailsViewController: UIViewController {
         nextEvolution3.image = UIImage(named: thirdForm)
     }
     
-    func showRegular() {
+    func showRegularImages() {
         guard let pokemon = pokemon else { return }
 
         pokemonImageView.image = UIImage(named: "\(pokemon.name)R.png")
