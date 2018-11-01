@@ -28,6 +28,9 @@ class PokemonDetailsViewController: UIViewController {
     
     let networkManager = NetworkManager()
     var pokemon: Pokemon?
+    var firstForm: String?
+    var secondForm: String?
+    var thirdForm: String?
 
     // MARK: - View LifeCycle
     
@@ -51,14 +54,7 @@ class PokemonDetailsViewController: UIViewController {
     }
     
     @IBAction func shinySwitch(_ sender: UISwitch) {
-        guard let pokemon = pokemon else { return }
-
-        if sender.isOn {
-            pokemonImageView.image = UIImage(named: "\(pokemon.name)")
-        }
-        else {
-            pokemonImageView.image = UIImage(named: "\(pokemon.name)R")
-        }
+        updatePokemonImages(isShiny: sender.isOn)
     }
     
     // MARK: - Methods
@@ -68,22 +64,39 @@ class PokemonDetailsViewController: UIViewController {
             guard let evolutions = evolutions else { return }
             
             DispatchQueue.main.async {
-                
                 let firstForm = evolutions.chain
+                self.firstForm = firstForm.species.name
                 self.nextEvolution.image = UIImage(named: "\(firstForm.species.name)R.png")
                 
                 guard let secondForm = firstForm.evolvesTo.first else { return }
+                self.secondForm = secondForm.species.name
                 self.nextEvolution2.image = UIImage(named: "\(secondForm.species.name)R.png")
                 
                 guard let thirdFrom = secondForm.evolvesTo.first else { return }
+                self.thirdForm = thirdFrom.species.name
                 self.nextEvolution3.image = UIImage(named: "\(thirdFrom.species.name)R.png")
             }
-
         }
+    }
+
+    func updatePokemonImages(isShiny: Bool) {
+        guard let pokemon = pokemon else { return }
+        
+        let shinyState = isShiny ? "" : "R"
+        
+        pokemonImageView.image = UIImage(named: "\(pokemon.name)" + shinyState)
+        
+        guard let firstForm = firstForm else { return }
+        nextEvolution.image = UIImage(named: "\(firstForm)" + shinyState)
+        
+        guard let secondForm = secondForm else { return }
+        nextEvolution2.image = UIImage(named: "\(secondForm)" + shinyState)
+        
+        guard let thirdForm = thirdForm else { return }
+        nextEvolution3.image = UIImage(named: "\(thirdForm)" + shinyState)
     }
     
     func loadDetails() {
-        
         guard let pokemon = self.pokemon else { return }
         
         pokemonImageView.image = UIImage(named: "\(pokemon.name)R.png")

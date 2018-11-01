@@ -14,6 +14,8 @@ class PokemonList: UIViewController {
     @IBOutlet weak var collection: UICollectionView!
     @IBOutlet weak var genCatagory: UISegmentedControl!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var loadingBackgroundView: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: - Properties
     
@@ -49,26 +51,25 @@ class PokemonList: UIViewController {
     // MARK: - Methods
     
     func getPokemonDetails() {
-        for index in selectedGeneration.range {
-            self.downloadGroup.enter()
-            self.networkManager.getPokemon(number: index) { (pokemon, error) in
-                guard let pokemon = pokemon else { return }
-                
-                self.genPokemonDetails.append(pokemon)
-                
-                self.downloadGroup.leave()
-            }
-        }
+        startLoading()
         
-        downloadGroup.notify(queue: .main) {
-            self.genPokemonDetails.sort { $0.id < $1.id }
+        networkManager.fetchPokemons(generation: selectedGeneration) { pokemons in
+            self.stopLoading()
+            self.genPokemonDetails = pokemons
             self.collection.reloadData()
-            
-            for pokemon in self.genPokemonDetails {
-                pokemon.fetchSpeciesData(with: self.networkManager)
-            }
         }
     }
+    
+    func startLoading() {
+        loadingBackgroundView.isHidden = false
+        activityIndicator.startAnimating()
+    }
+    
+    func stopLoading() {
+        loadingBackgroundView.isHidden = true
+        activityIndicator.stopAnimating()
+    }
+    
 }
 
 // MARK - Cell Protocols
