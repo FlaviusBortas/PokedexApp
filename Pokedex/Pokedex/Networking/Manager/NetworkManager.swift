@@ -26,11 +26,12 @@ class NetworkManager {
     private let router = Router<PokemonAPI>()
     private let storage = Storage.self
     private let downloadGroup = DispatchGroup()
+    private var shouldUseLocalStorage = true
     
     func getPokemon(number: Int, completion: @escaping (_ pokemon: Pokemon?, _ error: String?) -> ()) {
         let fileType = storage.FileType.pokemon(number)
         
-        if storage.fileExists(fileType) {
+        if shouldUseLocalStorage && storage.fileExists(fileType) {
             let pokemon = storage.retrieve(fileType, as: Pokemon.self)
             completion(pokemon, nil)
         }
@@ -40,7 +41,7 @@ class NetworkManager {
                 
                 completion(pokemon, error)
                 
-                if let pokemon = pokemon {
+                if self.shouldUseLocalStorage, let pokemon = pokemon {
                     self.storage.store(pokemon, as: fileType)
                 }
             }
@@ -82,7 +83,7 @@ class NetworkManager {
     func getPokemonEvolutions(speciesNumber: Int , completion: @escaping (_ evolutions: EvolutionChain?, _ error: String?) -> ()) {
         let fileType = storage.FileType.evolution(speciesNumber)
         
-        if storage.fileExists(fileType) {
+        if shouldUseLocalStorage && storage.fileExists(fileType) {
             if let evolution = storage.retrieve(fileType, as: EvolutionChain?.self) {
                 completion(evolution, nil)
             } else {
@@ -95,7 +96,7 @@ class NetworkManager {
                 
                 completion(evolutions, error)
                 
-                if let evolution = evolutions {
+                if self.shouldUseLocalStorage, let evolution = evolutions {
                     self.storage.store(evolution, as: fileType)
                 }
             }
@@ -105,7 +106,7 @@ class NetworkManager {
     func getPokemonSpecies(for id: Int, completion: @escaping (_ pokemonSpecies: PokemonSpecies?, _ error: String?) -> ()) {
         let fileType = storage.FileType.species(id)
         
-        if storage.fileExists(fileType) {
+        if shouldUseLocalStorage && storage.fileExists(fileType) {
             let species = storage.retrieve(fileType, as: PokemonSpecies.self)
             completion(species, nil)
         } else {
@@ -115,7 +116,7 @@ class NetworkManager {
                 
                 completion(pokemonSpecies, error)
                 
-                if let species = pokemonSpecies {
+                if self.shouldUseLocalStorage, let species = pokemonSpecies {
                     self.storage.store(species, as: fileType)
                 }
             }
