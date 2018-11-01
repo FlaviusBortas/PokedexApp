@@ -17,10 +17,7 @@ class PokemonCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-//        layer.borderWidth = 2
-//        layer.borderColor = UIColor.black.cgColor
         layer.cornerRadius = 12
-//        layer.backgroundColor = UIColor.lightGray.cgColor
     }
     
     func configure(with pokemon: Pokemon) {
