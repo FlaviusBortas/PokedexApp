@@ -96,21 +96,38 @@
                                 <color key="barTintColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xEc-jf-xQT">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="jPY-95-zAx">
+                                        <rect key="frame" x="169" y="387.66666666666669" width="37" height="37"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="jPY-95-zAx" firstAttribute="centerY" secondItem="xEc-jf-xQT" secondAttribute="centerY" id="Hfy-j5-0Dp"/>
+                                    <constraint firstItem="jPY-95-zAx" firstAttribute="centerX" secondItem="xEc-jf-xQT" secondAttribute="centerX" id="ZNm-Ue-UFe"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="xEc-jf-xQT" secondAttribute="bottom" id="5BL-Ls-XgN"/>
                             <constraint firstItem="F4m-Vv-mOv" firstAttribute="top" secondItem="6Zi-jK-2bx" secondAttribute="bottom" constant="17" id="7bE-QO-6nj"/>
                             <constraint firstItem="GCn-Rg-a3W" firstAttribute="leading" secondItem="dac-dp-q6I" secondAttribute="leading" constant="20" id="FCR-3g-bkM"/>
                             <constraint firstItem="F4m-Vv-mOv" firstAttribute="trailing" secondItem="dac-dp-q6I" secondAttribute="trailing" id="Iq4-2Q-Jcd"/>
                             <constraint firstItem="VKu-kj-psn" firstAttribute="top" secondItem="Y81-ud-AKw" secondAttribute="top" id="NH0-Fd-JBl"/>
                             <constraint firstItem="F4m-Vv-mOv" firstAttribute="leading" secondItem="dac-dp-q6I" secondAttribute="leading" id="Rar-Za-QM6"/>
+                            <constraint firstItem="xEc-jf-xQT" firstAttribute="top" secondItem="Y81-ud-AKw" secondAttribute="top" id="Uqw-D0-ybl"/>
                             <constraint firstAttribute="bottom" secondItem="GCn-Rg-a3W" secondAttribute="bottom" constant="15" id="VCX-7H-HzT"/>
                             <constraint firstItem="6Zi-jK-2bx" firstAttribute="top" secondItem="dac-dp-q6I" secondAttribute="top" constant="11" id="aPb-93-Pqh"/>
                             <constraint firstItem="GCn-Rg-a3W" firstAttribute="top" secondItem="F4m-Vv-mOv" secondAttribute="bottom" constant="10" id="eGc-U5-ZnH"/>
                             <constraint firstAttribute="bottom" secondItem="VKu-kj-psn" secondAttribute="bottom" id="fbZ-iQ-dG8"/>
                             <constraint firstItem="VKu-kj-psn" firstAttribute="leading" secondItem="dac-dp-q6I" secondAttribute="leading" id="jPE-q8-mEf"/>
                             <constraint firstItem="dac-dp-q6I" firstAttribute="trailing" secondItem="6Zi-jK-2bx" secondAttribute="trailing" constant="66" id="kaZ-2E-3VM"/>
+                            <constraint firstItem="xEc-jf-xQT" firstAttribute="leading" secondItem="dac-dp-q6I" secondAttribute="leading" id="lOj-Xq-up7"/>
                             <constraint firstItem="dac-dp-q6I" firstAttribute="trailing" secondItem="GCn-Rg-a3W" secondAttribute="trailing" constant="20" id="nLI-kd-n9T"/>
+                            <constraint firstItem="xEc-jf-xQT" firstAttribute="trailing" secondItem="dac-dp-q6I" secondAttribute="trailing" id="r7A-Ix-vKb"/>
                             <constraint firstItem="6Zi-jK-2bx" firstAttribute="leading" secondItem="dac-dp-q6I" secondAttribute="leading" constant="65" id="wLt-Vm-WiB"/>
                             <constraint firstItem="VKu-kj-psn" firstAttribute="trailing" secondItem="dac-dp-q6I" secondAttribute="trailing" id="zgi-i4-vdR"/>
                         </constraints>
@@ -120,8 +137,10 @@
                         <nil key="title"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="jPY-95-zAx" id="qeX-6G-jOT"/>
                         <outlet property="collection" destination="GCn-Rg-a3W" id="dDx-2E-8cE"/>
                         <outlet property="genCatagory" destination="6Zi-jK-2bx" id="y56-wd-Mc9"/>
+                        <outlet property="loadingBackgroundView" destination="xEc-jf-xQT" id="Laz-uo-jfi"/>
                         <outlet property="searchBar" destination="F4m-Vv-mOv" id="wrl-re-RXG"/>
                         <segue destination="PkX-Fi-DV7" kind="show" identifier="pokemonDetails" id="xoD-bs-E1B"/>
                     </connections>
